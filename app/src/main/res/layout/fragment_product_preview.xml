@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProductPreviewFragment">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/account_settings_section"
+        android:layout_width="match_parent"
+        android:layout_height="552dp"
+        android:orientation="horizontal"
+        >
+
+
+        <custom.view.RoundedImageView
+            android:id="@+id/image_pet_profile_pic"
+            android:layout_width="@dimen/post_profile_picture"
+            android:layout_height="@dimen/post_profile_picture"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/image_product"
+            android:layout_marginTop="11dp"
+            android:src="@drawable/ic_pawprint" />
+
+        <TextView
+            android:id="@+id/text_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/text_product_name"
+            android:layout_alignTop="@+id/image_pet_profile_pic"
+            android:textColor="#FF313E47"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/text_post_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/image_pet_profile_pic"
+            android:layout_marginTop="70dp"
+            android:textColor="#FF313E47"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/image_product"
+            android:layout_width="168dp"
+            android:layout_height="162dp"
+            android:layout_below="@+id/text_post_description"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="25dp"
+            android:src="@drawable/ic_shopping_cart_black_24dp"
+            android:background="@drawable/round_border"/>
+
+        <TextView
+            android:id="@+id/text_product_name"
+            android:layout_width="93dp"
+            android:layout_height="23dp"
+            android:layout_below="@+id/image_product"
+            android:layout_marginBottom="15dp"
+            android:layout_marginStart="25dp"
+            android:width="286.84dp"
+            android:height="9.5dp"
+            android:text="Grey Scarf"
+            android:textColor="@color/colorText"
+            android:textSize="9sp" />
+
+
+        <ImageView
+            android:id="@+id/image_heart_likes"
+            android:layout_width="wrap_content"
+            android:layout_height="14.9dp"
+            android:layout_below="@+id/image_product"
+            android:layout_marginLeft="52dp"
+            android:layout_marginTop="0dp"
+            android:layout_toRightOf="@+id/text_product_name"
+            android:src="@drawable/ic_gifty_logo" />
+
+
+    </RelativeLayout>
+
+</FrameLayout>

@@ -1,53 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    >
 
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/nav_bar"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         >
-        <FrameLayout
+
+        <LinearLayout
             android:id="@+id/home_top_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15dp"
+            android:orientation="horizontal"
             >
 
             <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/home_gifty_logo"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:src="@drawable/ic_gifty_logo"
                 />
 
-            <SearchView
+            <TextView
+                android:id="@+id/home_search_field"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/home_search_bar"
-                android:iconifiedByDefault="true"
-                android:inputType="text"
-                android:searchIcon="@drawable/ic_search_black_24dp"
-                android:paddingLeft="30dp"
-                android:autofillHints="Search Gifty"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_border">
+
+                <SearchView
+                    android:id="@+id/home_search_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:iconifiedByDefault="true"
+                    android:inputType="text"
+                    android:paddingLeft="30dp">
+
+                </SearchView>
+
+            </TextView>
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/home_shopping_cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_shopping_cart_black_24dp"
                 />
-        </FrameLayout>
+
+        </LinearLayout>
 
         <FrameLayout
             android:id="@+id/home_dashboard_items"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/home_top_bar"
-            android:layout_above="@id/nav_bar"
-            >
+            android:layout_height="wrap_content">
+
+            <GridLayout
+                android:id="@+id/grid_dashboard_items"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+            </GridLayout>
 
         </FrameLayout>
 
     </FrameLayout>
-
 
     <android.support.design.widget.BottomNavigationView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
