@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ProfileWishlistFragment">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/profile_wishlist_preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <com.gifty.hci.gifty.RoundedImageView
+            android:id="@+id/image_wishlist_preview"
+            android:layout_width="@dimen/wishlist_image_preview_size"
+            android:layout_height="@dimen/wishlist_image_preview_size"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_gifty_logo" />
+
+        <TextView
+            android:id="@+id/text_wishlist_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="@dimen/text_margin_start"
+            android:layout_marginTop="10dp"
+            android:text="Birthday"
+            android:textColor="@color/colorText"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/text_wishlist_items"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_wishlist_name"
+            android:layout_marginStart="@dimen/text_margin_start"
+            android:layout_marginTop="2dp"
+            android:paddingTop="10dp"
+            android:text="55 items"
+            android:textColor="@color/colorText"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/text_wishlist_deadline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_wishlist_items"
+            android:paddingTop="10dp"
+            android:layout_marginStart="@dimen/text_margin_start"
+            android:text="Event in 10 days"
+            android:textColor="@color/colorText"
+            android:textSize="12sp" />
+
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/horizontal_line"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_wishlist_preview"
+        android:background="@color/colorTextSoft" />
+
+</FrameLayout>

@@ -5,6 +5,8 @@
     <string name="nav_notifications">Notifications</string>
     <string name="nav_profile">Profile</string>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="profile_wishlist">Wishlist</string>
+    <string name="profile_friends">Friends</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
