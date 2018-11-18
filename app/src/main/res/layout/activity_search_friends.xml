@@ -2,8 +2,70 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SearchFriendsActivity">
+
+    <LinearLayout
+        android:id="@+id/search_friends_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingLeft="15dp"
+        android:orientation="horizontal"
+        >
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/home_gifty_logo"
+            android:layout_width="@dimen/top_bar_logo_width"
+            android:layout_height="@dimen/top_bar_logo_height"
+            android:src="@drawable/ic_gifty_logo"
+            />
+
+        <SearchView
+            android:id="@+id/home_search_bar"
+            android:layout_width="@dimen/top_bar_search_width"
+            android:layout_height="match_parent"
+            android:iconifiedByDefault="true"
+            android:inputType="text"
+            android:searchIcon="@drawable/ic_search_black_24dp"
+            android:paddingLeft="10dp"
+            >
+        </SearchView>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/search_friends_results"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <GridLayout
+                android:id="@+id/grid_friends"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+            </GridLayout>
+        </ScrollView>
+
+
+
+    </FrameLayout>
+
+    <android.support.design.widget.BottomNavigationView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlue"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_navigation"
+        app:layout_constraintBottom_toBottomOf="@+id/search_friends_results"
+        app:labelVisibilityMode="labeled"
+        />
 
 </android.support.constraint.ConstraintLayout>
