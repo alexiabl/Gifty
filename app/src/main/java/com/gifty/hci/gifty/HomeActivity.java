@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 
 /**
  * Class for the main Home/Dashboard page
+ * @author Alexia Borchgrevink
  */
 public class HomeActivity extends AppCompatActivity {
 
@@ -40,11 +42,12 @@ public class HomeActivity extends AppCompatActivity {
             Activity selectedActivity = null;
             switch(menuItem.getItemId()){
                 case R.id.nav_home:
-                    //selectedFragment = new HomeFragment();
+                    selectedActivity = new HomeActivity();
                     break;
                 case R.id.nav_search_friends:
                     //This should be replaced with the activity for Search Friends, not a fragment
                     //selectedActivity = new SearchFriendsFragment();
+                    selectedActivity = new SearchFriendsActivity();
                     break;
                 case R.id.nav_notifications:
                     //This should be replaced with the activity for Notifications, not a fragment
@@ -71,9 +74,22 @@ public class HomeActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
         GridView gridView = findViewById(R.id.grid_dashboard_items);
-        ArrayList<Product> products = (ArrayList<Product>)productDao.getAllProducts();
-        ProductGridAdapter productGridAdapter = new ProductGridAdapter(this, (Product[]) products.toArray());
+        final ArrayList<Product> products = (ArrayList<Product>) productDao.getAllProducts();
+        final ProductGridAdapter productGridAdapter = new ProductGridAdapter(this, (Product[]) products.toArray());
         gridView.setAdapter(productGridAdapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent, View view, int position, long id) {
+                Product product = products.get(position);
+                //book.toggleFavorite()
+
+                // This tells the GridView to redraw itself
+                // in turn calling your BooksAdapter's getView method again for each cell
+                productGridAdapter.notifyDataSetChanged();
+            }
+        });
+
     }
 
     public static class ProductGridAdapter extends BaseAdapter {
@@ -116,11 +132,13 @@ public class HomeActivity extends AppCompatActivity {
             // 3
             final ImageView imageView = (ImageView)view.findViewById(R.id.image_product);
             final TextView nameTextView = (TextView)view.findViewById(R.id.text_product_name);
-            final ImageView imageBrand = (ImageView)view.findViewById(R.id.image_brand);
+            final TextView brand = (TextView) view.findViewById(R.id.text_brand);
 
             // 4
             //set product image
+            imageView.setImageBitmap(item.getImage());
             nameTextView.setText(item.getName());
+            brand.setText(item.getBrand());
            // authorTextView.setText(mContext.getString(book.getAuthor()));
 
             return view;

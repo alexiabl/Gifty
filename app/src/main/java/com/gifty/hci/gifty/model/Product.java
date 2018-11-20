@@ -1,7 +1,7 @@
 package com.gifty.hci.gifty.model;
 
 
-
+import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class Product {
 
     private int rating;
 
-    private ImageView image;
+    private Bitmap image;
 
     private List<Review> reviewList;
 
@@ -75,11 +75,11 @@ public class Product {
         this.rating = rating;
     }
 
-    public ImageView getImage() {
+    public Bitmap getImage() {
         return image;
     }
 
-    public void setImage(ImageView image) {
+    public void setImage(Bitmap image) {
         this.image = image;
     }
 

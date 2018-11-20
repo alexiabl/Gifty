@@ -8,7 +8,9 @@ import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 
 
-
+/**
+ * Helper class to display a round image view
+ */
 public class RoundedImageView extends AppCompatImageView {
     private boolean topLeft;
     private boolean topRight;

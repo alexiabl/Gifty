@@ -7,6 +7,7 @@ import android.graphics.RectF;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 
+
 public class RoundedTextView extends AppCompatTextView {
     private boolean topLeft;
     private boolean topRight;
