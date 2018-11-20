@@ -1,63 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/nav_bar"
-        >
-        <FrameLayout
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    tools:context=".HomeActivity"
+    >
+
+        <LinearLayout
             android:id="@+id/home_top_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15dp"
+            android:paddingLeft="15dp"
+            android:orientation="horizontal"
             >
 
             <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/home_gifty_logo"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="@dimen/top_bar_logo_width"
+                android:layout_height="@dimen/top_bar_logo_height"
                 android:src="@drawable/ic_gifty_logo"
                 />
 
-            <SearchView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/home_search_bar"
-                android:iconifiedByDefault="true"
-                android:inputType="text"
-                android:searchIcon="@drawable/ic_search_black_24dp"
-                android:paddingLeft="30dp"
-                android:autofillHints="Search Gifty"
+                <SearchView
+                    android:id="@+id/home_search_bar"
+                    android:layout_width="@dimen/top_bar_search_width"
+                    android:layout_height="match_parent"
+                    android:iconifiedByDefault="true"
+                    android:inputType="text"
+                    android:searchIcon="@drawable/ic_search_black_24dp"
+                    android:paddingLeft="10dp"
+                   >
+
+                </SearchView>
+
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/home_shopping_cart"
+                android:layout_width="@dimen/top_bar_shoppingCart_width"
+                android:layout_height="@dimen/top_bar_shoppingCart_height"
+                android:src="@drawable/ic_shopping_cart_black_24dp"
                 />
-        </FrameLayout>
+
+        </LinearLayout>
 
         <FrameLayout
             android:id="@+id/home_dashboard_items"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/home_top_bar"
-            android:layout_above="@id/nav_bar"
-            >
+            android:layout_height="match_parent">
+
+            <GridLayout
+                android:id="@+id/grid_dashboard_items"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </GridLayout>
 
         </FrameLayout>
-
-    </FrameLayout>
-
 
     <android.support.design.widget.BottomNavigationView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/nav_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:background="@color/colorBlue"
-        app:menu="@menu/bottom_navigation"
         app:labelVisibilityMode="labeled"
-        />
+        app:layout_constraintBottom_toBottomOf="@id/home_dashboard_items"
+        app:menu="@menu/bottom_navigation" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

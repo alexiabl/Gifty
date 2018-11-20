@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Style theme for Gifty -->
     <style name="GiftyTheme">
         <item name="colorPrimary">@color/colorBlue</item>
         <item name="android:textColor">@color/colorText</item>
