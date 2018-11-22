@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".GiftcartActivity">
+    tools:context=".ShoppingCartActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,14 +23,24 @@
             android:textAlignment="center"
             android:textSize="20dp" />
 
-        <ListView
-            android:id="@+id/gifts"
-            android:layout_width="match_parent"
-            android:layout_height="427dp"
-            android:background="@android:color/white"
-            android:padding="10dp">
 
-        </ListView>
+        <FrameLayout
+            android:id="@+id/shopping_cart_items"
+            android:name="com.gifty.hci.gifty.ShoppingCartItemFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="20dp"
+            tools:layout="@layout/fragment_shoppingcart">
+
+            <ListView
+                android:id="@+id/gifts"
+                android:layout_width="match_parent"
+                android:layout_height="427dp"
+                android:background="@android:color/white"
+                android:padding="10dp"></ListView>
+        </FrameLayout>
+
 
         <TextView
             android:id="@+id/total_payment"
