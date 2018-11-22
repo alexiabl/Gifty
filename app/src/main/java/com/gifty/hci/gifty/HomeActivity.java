@@ -75,7 +75,4 @@ public class HomeActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-
-
-
 }

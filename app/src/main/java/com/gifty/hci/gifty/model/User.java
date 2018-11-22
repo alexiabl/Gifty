@@ -13,13 +13,13 @@ public class User {
     private String email;
     private String firstName;
     private String lastName;
-    private DateFormat birthdate;
+    private String birthdate;
     private String password;
     private List<User> followers;
     private List<User> following;
     private ShoppingCart shoppingCart;
 
-    public User(String email, String firstName, String lastName, DateFormat birthdate, String password) {
+    public User(String email, String firstName, String lastName, String birthdate, String password) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -51,11 +51,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public DateFormat getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(DateFormat birthdate) {
+    public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
 

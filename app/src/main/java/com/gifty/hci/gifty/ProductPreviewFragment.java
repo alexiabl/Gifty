@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.gifty.hci.gifty.dao.ProductDao;
 import com.gifty.hci.gifty.model.Product;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -148,9 +149,10 @@ public class ProductPreviewFragment extends Fragment {
 
             // 4
             //set product image
-            imageView.setImageBitmap(item.getImage());
+            Picasso.with(context).load(item.getImageUrl()).into(imageView);
             nameTextView.setText(item.getName());
             brand.setText(item.getBrand());
+
 
             return view;
         }

@@ -19,7 +19,7 @@
             android:orientation="horizontal"
             >
 
-            <android.support.v7.widget.AppCompatImageButton
+            <ImageButton
                 android:id="@+id/home_gifty_logo"
                 android:layout_width="@dimen/top_bar_logo_width"
                 android:layout_height="@dimen/top_bar_logo_height"

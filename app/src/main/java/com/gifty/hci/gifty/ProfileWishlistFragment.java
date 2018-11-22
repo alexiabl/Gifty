@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.gifty.hci.gifty.model.Product;
 import com.gifty.hci.gifty.model.Wishlist;
+import com.squareup.picasso.Picasso;
 
 
 /**
@@ -161,7 +162,10 @@ public class ProfileWishlistFragment extends Fragment {
 
             // 4
             //set wishlist values
-
+            Picasso.with(context).load(item.getImageUrl()).into(imageView);
+            nameTextView.setText(item.getName());
+            numItems.setText(item.getNumItems());
+            deadline.setText(item.getDeadline());
 
             return view;
         }
