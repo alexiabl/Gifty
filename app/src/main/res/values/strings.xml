@@ -16,4 +16,6 @@
     <string name="sign_in">Sign in</string>
     <string name="password">Password</string>
     <string name="forgot_password2">Forgot Password</string>
+    <string name="title_activity_edit_profile">EditProfileActivity</string>
+    <string name="title_activity_wishlist">WishlistActivity</string>
 </resources>
