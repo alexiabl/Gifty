@@ -12,15 +12,15 @@ import java.util.List;
 public class Wishlist {
 
     private String name;
-    private Image image;
-    private DateFormat deadline;
+    private String imageUrl;
+    private String deadline;
     private int numItems;
     private boolean expired;
     private List<Product> items;
 
-    public Wishlist(String name, Image image, DateFormat deadline, int numItems, boolean expired) {
+    public Wishlist(String name, String image, String deadline, int numItems, boolean expired) {
         this.name = name;
-        this.image = image;
+        this.imageUrl = image;
         this.deadline = deadline;
         this.numItems = numItems;
         this.expired = expired;
@@ -34,19 +34,19 @@ public class Wishlist {
         this.name = name;
     }
 
-    public Image getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setImageUrl(String image) {
+        this.imageUrl = image;
     }
 
-    public DateFormat getDeadline() {
+    public String getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(DateFormat deadline) {
+    public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
 

@@ -10,10 +10,10 @@ public class Review {
 
     private String title;
     private String description;
-    private DateFormat date;
+    private String date;
     private int rating;
 
-    public Review(String title, String description, DateFormat date, int rating) {
+    public Review(String title, String description, String date, int rating) {
         this.title = title;
         this.description = description;
         this.date = date;
@@ -36,11 +36,11 @@ public class Review {
         this.description = description;
     }
 
-    public DateFormat getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(DateFormat date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
