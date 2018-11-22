@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 
 /**
  * Helper class to display a round image view
+ * Note: this was taken from a previous project Alexia worked on.
  */
 public class RoundedImageView extends AppCompatImageView {
     private boolean topLeft;

@@ -56,16 +56,16 @@
             android:textColor="@color/colorText"
             android:textSize="12sp" />
 
+        <View
+            android:id="@+id/horizontal_line"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_below="@+id/image_wishlist_preview"
+            android:background="@color/colorTextSoft" />
 
     </RelativeLayout>
 
-    <View
-        android:id="@+id/horizontal_line"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_wishlist_preview"
-        android:background="@color/colorTextSoft" />
 
 </FrameLayout>
