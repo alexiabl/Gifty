@@ -3,10 +3,17 @@ package com.gifty.hci.gifty;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.gifty.hci.gifty.model.Product;
+import com.gifty.hci.gifty.model.Wishlist;
+import com.squareup.picasso.Picasso;
 
 
 /**
@@ -65,6 +72,7 @@ public class ProfileWishlistFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile_wishlist, container, false);
+        //TODO: Set Profile wishlist adapter list items
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -104,5 +112,62 @@ public class ProfileWishlistFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    /**
+     * Adapter class for the product items displayed in GridView in the frame layout
+     */
+    public static class WishlistListAdapter extends BaseAdapter {
+
+        private final Wishlist[] wishlists;
+        private final Context context;
+
+        public WishlistListAdapter(Context context, Wishlist[] wishlists) {
+            this.wishlists = wishlists;
+            this.context = context;
+        }
+
+        @Override
+        public int getCount() {
+            return wishlists.length;
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return wishlists[i];
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            // 1
+            //find product in database by key
+            final Wishlist item = wishlists[i];
+
+            // 2
+            if (view == null) {
+                final LayoutInflater layoutInflater = LayoutInflater.from(context);
+                view = layoutInflater.inflate(R.layout.fragment_profile_wishlist, null);
+            }
+
+            // 3
+            final ImageView imageView = (ImageView) view.findViewById(R.id.image_wishlist_preview);
+            final TextView nameTextView = (TextView) view.findViewById(R.id.text_wishlist_name);
+            final TextView numItems = (TextView) view.findViewById(R.id.text_wishlist_items);
+            final TextView deadline = (TextView) view.findViewById(R.id.text_wishlist_deadline);
+
+            // 4
+            //set wishlist values
+            Picasso.with(context).load(item.getImageUrl()).into(imageView);
+            nameTextView.setText(item.getName());
+            numItems.setText(item.getNumItems());
+            deadline.setText(item.getDeadline());
+
+            return view;
+        }
     }
 }

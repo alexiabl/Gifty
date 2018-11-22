@@ -23,7 +23,7 @@ public class Product {
 
     private int rating;
 
-    private Bitmap image;
+    private String imageUrl;
 
     private List<Review> reviewList;
 
@@ -75,12 +75,12 @@ public class Product {
         this.rating = rating;
     }
 
-    public Bitmap getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage(Bitmap image) {
-        this.image = image;
+    public void setImageUrl(String image) {
+        this.imageUrl = image;
     }
 
     public List<Review> getReviewList() {
