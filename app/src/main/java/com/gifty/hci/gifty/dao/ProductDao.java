@@ -16,6 +16,7 @@ import java.util.Map;
 
 /**
  * @author Alexia Borchgrevink
+ * DAO class for Products
  */
 public class ProductDao {
 
@@ -25,9 +26,13 @@ public class ProductDao {
     public ProductDao(){
         this.dbRef = FirebaseDatabase.getInstance().getReference();
         this.productsRef = dbRef.child("Products");
-
     }
 
+    /**
+     * Method to obtain all the products from the database
+     *
+     * @return a list of Product objects
+     */
     public List<Product> getAllProducts(){
         final List<Product> allProducts = new ArrayList<>();
 
@@ -41,15 +46,18 @@ public class ProductDao {
                     for (Product prod: products) {
                         allProducts.add(prod);
                     }
-                    
+
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
-    return allProducts;
+        return allProducts;
     }
+
+
 
 }

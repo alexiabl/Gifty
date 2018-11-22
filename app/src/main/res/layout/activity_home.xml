@@ -34,6 +34,7 @@
                     android:inputType="text"
                     android:searchIcon="@drawable/ic_search_black_24dp"
                     android:paddingLeft="10dp"
+                    android:background="@drawable/layout_emailboxwhite"
                    >
 
                 </SearchView>
@@ -50,15 +51,20 @@
 
         <FrameLayout
             android:id="@+id/home_dashboard_items"
+            android:name="com.gifty.hci.gifty.ProductPreviewFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="20dp"
+            tools:layout="@layout/fragment_product_preview">
 
-            <GridLayout
+            <GridView
                 android:id="@+id/grid_dashboard_items"
+                android:numColumns="2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            </GridLayout>
+            </GridView>
 
         </FrameLayout>
 
