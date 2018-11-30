@@ -27,7 +27,10 @@
             android:label="@string/title_activity_edit_profile" />
         <activity
             android:name=".WishlistActivity"
-            android:label="@string/title_activity_wishlist"></activity>
+            android:label="@string/title_activity_wishlist" />
+        <activity
+            android:name=".MyProfileWishlistActivity"
+            android:label="@string/title_activity_my_profile_wishlist"></activity>
     </application>
 
 </manifest>

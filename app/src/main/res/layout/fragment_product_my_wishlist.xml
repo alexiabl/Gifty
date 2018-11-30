@@ -10,8 +10,7 @@
         android:id="@+id/product_preview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/image_product"
@@ -28,21 +27,31 @@
             android:layout_height="24dp"
             android:layout_alignTop="@+id/image_product"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="34dp"
+            android:layout_marginStart="33dp"
             android:layout_marginTop="9dp"
-            android:src="@drawable/ic_dollars2"
-            android:background="@drawable/layout_product_price" />
+            android:background="@drawable/layout_product_price"
+            android:src="@drawable/ic_dollars2" />
+
+        <ImageView
+            android:id="@+id/btn_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/image_price"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="-4dp"
+            android:layout_marginEnd="207dp"
+            android:src="@drawable/ic_close_black_24dp" />
 
         <TextView
             android:id="@+id/text_product_name"
             android:layout_width="93dp"
             android:layout_height="23dp"
             android:layout_below="@+id/image_product"
-            android:layout_marginBottom="15dp"
             android:layout_marginStart="25dp"
+            android:layout_marginBottom="15dp"
             android:width="286.84dp"
-            android:gravity="start"
             android:height="9.5dp"
+            android:gravity="start"
             android:text="Grey Scarf"
             android:textColor="@color/colorText"
             android:textSize="9sp" />
@@ -53,13 +62,14 @@
             android:layout_width="wrap_content"
             android:layout_height="14.9dp"
             android:layout_below="@+id/image_product"
-            android:layout_marginTop="0dp"
             android:layout_alignEnd="@+id/image_product"
+            android:layout_marginTop="0dp"
             android:layout_toRightOf="@+id/text_product_name"
             android:gravity="end"
             android:text="Brand"
             android:textSize="9sp" />
 
     </RelativeLayout>
+
 
 </FrameLayout>
