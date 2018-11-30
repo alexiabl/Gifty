@@ -1,26 +1,15 @@
 package com.gifty.hci.gifty;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.gifty.hci.gifty.dao.ProductDao;
-import com.gifty.hci.gifty.model.Product;
-
-import java.util.ArrayList;
 
 /**
  * Class for the Item Description page
@@ -28,7 +17,7 @@ import java.util.ArrayList;
  * @author Shunya Kogure
  */
 
-public class ItemDescriptionActivity extends AppCompatActivity {
+public class ProductDescriptionActivity extends AppCompatActivity {
     private ProductDao productDao;
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
@@ -62,7 +51,7 @@ public class ItemDescriptionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_itemdescription);
+        setContentView(R.layout.activity_productdescription);
         this.productDao = new ProductDao();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.nav_bar);
@@ -83,7 +72,7 @@ public class ItemDescriptionActivity extends AppCompatActivity {
         btn_giftcart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GiftcartActivity giftcartActivity = new GiftcartActivity();
+                ShoppingCartActivity giftcartActivity = new ShoppingCartActivity();
             }
         });
 
