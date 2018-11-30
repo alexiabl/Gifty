@@ -27,6 +27,12 @@
     <string name="btn_label_save">Save</string>
     <string name="title_activity_my_profile_wishlist">MyProfileWishlistActivity</string>
     <string name="label_wishlist">Wishlist</string>
+    <string name="title_activity_create_wishlist">Create Wishlist</string>
+    <string name="btn_label_create">Create</string>
+    <string name="label_wishlist_name">Name:</string>
+    <string name="label_wishlist_deadline">Event Deadline:</string>
+    <string name="hint_deadline_date">DD/MM/YYYY</string>
+    <string name="title_activity_choose_wishlist">Choose Wishlist</string>
 
 
 </resources>
