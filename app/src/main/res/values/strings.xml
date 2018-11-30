@@ -12,10 +12,19 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="todo">TODO</string>
     <string name="email">Email</string>
+    <string name="gift_cart">Gift Cart</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="sign_in">Sign in</string>
     <string name="password">Password</string>
     <string name="forgot_password2">Forgot Password</string>
     <string name="title_activity_edit_profile">EditProfileActivity</string>
     <string name="title_activity_wishlist">WishlistActivity</string>
+    <string name="title_edit_profile">Edit Profile</string>
+    <string name="label_first_name">First Name:</string>
+    <string name="label_last_name">Last Name:</string>
+    <string name="label_email">Email:</string>
+    <string name="label_birthday">Birthday:</string>
+    <string name="btn_label_save">Save</string>
+
+
 </resources>
