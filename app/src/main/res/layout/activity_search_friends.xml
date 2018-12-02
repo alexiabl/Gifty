@@ -65,6 +65,8 @@
         android:layout_alignParentBottom="true"
         app:menu="@menu/bottom_navigation"
         app:layout_constraintBottom_toBottomOf="@+id/search_friends_results"
+        app:itemIconTint="@drawable/bottom_nav_colors"
+        app:itemTextColor="@drawable/bottom_nav_colors"
         app:labelVisibilityMode="labeled"
         />
 

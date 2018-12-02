@@ -36,7 +36,10 @@
             android:label="@string/title_activity_create_wishlist" />
         <activity
             android:name=".ChooseWishlistActivity"
-            android:label="@string/title_activity_choose_wishlist"></activity>
+            android:label="@string/title_activity_choose_wishlist" />
+        <activity
+            android:name=".BaseActivity"
+            android:label="@string/title_activity_base"></activity>
     </application>
 
 </manifest>

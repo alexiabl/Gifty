@@ -152,8 +152,6 @@ public class ProductPreviewFragment extends Fragment {
             Picasso.with(context).load(item.getImageUrl()).into(imageView);
             nameTextView.setText(item.getName());
             brand.setText(item.getBrand());
-
-
             return view;
         }
     }
