@@ -42,7 +42,7 @@ public class SigninActivity extends AppCompatActivity {
         Signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent SignupIntent = new Intent(SigninActivity.this,SignupActivity1.class);
+                Intent SignupIntent = new Intent(SigninActivity.this, SignupActivity1.class);
                 startActivity(SignupIntent);
             }
         });
@@ -50,7 +50,7 @@ public class SigninActivity extends AppCompatActivity {
         ForgotPasswrod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ForgotPasswordIntent = new Intent(SigninActivity.this,ForgotPasswordActivity1.class);
+                Intent ForgotPasswordIntent = new Intent(SigninActivity.this, ForgotPasswordActivity1.class);
                 startActivity(ForgotPasswordIntent);
             }
         });
@@ -58,7 +58,7 @@ public class SigninActivity extends AppCompatActivity {
         Signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
                 checkLogin();
             }
         });
@@ -72,37 +72,37 @@ public class SigninActivity extends AppCompatActivity {
 
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
 
-            mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()){
+                    if (task.isSuccessful()) {
 
-                        Intent intent = new Intent(SigninActivity.this,HomeActivity.class);
+                        Intent intent = new Intent(SigninActivity.this, HomeActivity.class);
                         startActivity(intent);
 
-                    }else{
+                    } else {
                         String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
                         switch (errorCode) {
                             case "ERROR_INVALID_EMAIL":
-                                Toast.makeText(SigninActivity.this,"Invalid Email", Toast.LENGTH_LONG).show();
+                                Toast.makeText(SigninActivity.this, "Invalid Email", Toast.LENGTH_LONG).show();
                                 break;
                             case "ERROR_WRONG_PASSWORD":
-                                Toast.makeText(SigninActivity.this,"Wrong Password", Toast.LENGTH_LONG).show();
+                                Toast.makeText(SigninActivity.this, "Wrong Password", Toast.LENGTH_LONG).show();
                                 break;
                             case "ERROR_USER_NOT_FOUND":
-                                Toast.makeText(SigninActivity.this,"No account registered with this Email", Toast.LENGTH_LONG).show();
+                                Toast.makeText(SigninActivity.this, "No account registered with this Email", Toast.LENGTH_LONG).show();
                                 break;
                             default:
-                                Toast.makeText(SigninActivity.this,"Error Login", Toast.LENGTH_LONG).show();
+                                Toast.makeText(SigninActivity.this, "Error Login", Toast.LENGTH_LONG).show();
                         }
                     }
                 }
             });
-            }else {
-            Toast.makeText(SigninActivity.this,"Empty Fields", Toast.LENGTH_LONG).show();
-        }
-
+        } else {
+            Toast.makeText(SigninActivity.this, "Empty Fields", Toast.LENGTH_LONG).show();
         }
 
     }
+
+}
 
