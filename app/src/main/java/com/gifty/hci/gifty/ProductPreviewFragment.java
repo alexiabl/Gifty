@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.gifty.hci.gifty.model.Product;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -31,7 +33,9 @@ public class ProductPreviewFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private ProductDao productDao;
+    private ProductDao productDao = new ProductDao();
+
+    private GridView gridView;
 
     public ProductPreviewFragment() {
         // Required empty public constructor
@@ -46,20 +50,7 @@ public class ProductPreviewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_product_preview, null);
-        GridView gridView = view.findViewById(R.id.grid_dashboard_items);
-        final ArrayList<Product> products = (ArrayList<Product>) this.productDao.getAllProducts();
-        final ProductGridAdapter productGridAdapter = new ProductGridAdapter(getActivity(), (Product[]) products.toArray());
-        gridView.setAdapter(productGridAdapter);
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView parent, View view, int position, long id) {
-                Product product = products.get(position);
-                productGridAdapter.notifyDataSetChanged();
-                //change view to product description
-            }
-        });
+        ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_product_preview, container, false);
         return view;
     }
 
@@ -70,22 +61,7 @@ public class ProductPreviewFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
 
     /**
      * This interface must be implemented by activities that contain this
@@ -102,57 +78,4 @@ public class ProductPreviewFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    /**
-     * Adapter class for the product items displayed in GridView in the frame layout
-     */
-    public static class ProductGridAdapter extends BaseAdapter {
-
-        private final Product[] products;
-        private final Context context;
-
-        public ProductGridAdapter(Context context, Product[] products) {
-            this.products = products;
-            this.context = context;
-        }
-
-        @Override
-        public int getCount() {
-            return products.length;
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return products[i];
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            // 1
-            //find product in database by key
-            final Product item = products[i];
-
-            // 2
-            if (view == null) {
-                final LayoutInflater layoutInflater = LayoutInflater.from(context);
-                view = layoutInflater.inflate(R.layout.fragment_product_preview, null);
-            }
-
-            // 3
-            final ImageView imageView = (ImageView) view.findViewById(R.id.image_product);
-            final TextView nameTextView = (TextView) view.findViewById(R.id.text_product_name);
-            final TextView brand = (TextView) view.findViewById(R.id.text_brand);
-
-            // 4
-            //set product image
-            Picasso.with(context).load(item.getImageUrl()).into(imageView);
-            nameTextView.setText(item.getName());
-            brand.setText(item.getBrand());
-            return view;
-        }
-    }
 }

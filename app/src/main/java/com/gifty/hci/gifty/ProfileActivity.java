@@ -55,6 +55,8 @@ public class ProfileActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_user_wishlist, profileWishlistFragment);
         fragmentTransaction.commit();
+        Intent intent = new Intent(ProfileActivity.this, ProfileActivity.class);
+        startActivity(intent);
     }
 
 }

@@ -21,11 +21,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gifty.hci.gifty.dao.ProductDao;
-import com.gifty.hci.gifty.model.Product;
+import com.gifty.hci.gifty.model.*;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -35,6 +43,14 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity {
 
     public HomeActivity instance = this;
+    public ImageView imageViewLogo;
+    private GridView gridViewProducts;
+    private ProductDao productDao = new ProductDao();
+    private DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+    ;
+    private DatabaseReference productsRef = dbRef.child("Products");
+    ;
+
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
@@ -71,9 +87,112 @@ public class HomeActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         ProductPreviewFragment productPreviewFragment = new ProductPreviewFragment();
 
+        this.gridViewProducts = findViewById(R.id.grid_dashboard_items);
+        //final ArrayList<Product> products = (ArrayList<Product>) this.productDao.getAllProducts();
+
+        final List<Product> products = new ArrayList<>();
+        ValueEventListener eventListener = this.productsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    String name = (String) data.child("name").getValue();
+                    String brand = (String) data.child("brand").getValue();
+                    String price = (String) data.child("price").getValue();
+                    //int id = (Integer)data.child("id").getValue();
+                    Long rating = (Long) data.child("rating").getValue();
+                    boolean inStock = (Boolean) data.child("inStock").getValue();
+                    DataSnapshot reviews = data.child("reviews");
+                    List<Review> listReviews = new ArrayList<>();
+                    String imageUrl = (String) data.child("imageUrl").getValue();
+                    for (DataSnapshot review : reviews.getChildren()) {
+                        String date = (String) review.child("date").getValue();
+                        String description = (String) review.child("description").getValue();
+                        Long ratingRev = (Long) review.child("rating").getValue();
+                        String title = (String) review.child("title").getValue();
+                        Long idRev = (Long) review.child("id").getValue();
+                        Review reviewItem = new Review(title, description, date, ratingRev, idRev);
+                        listReviews.add(reviewItem);
+                    }
+                    Product product = new Product(name, price, brand, inStock, rating, listReviews, imageUrl);
+                    products.add(product);
+                }
+                final ProductGridAdapter productGridAdapter = new ProductGridAdapter(getApplicationContext(), products);
+                gridViewProducts.setAdapter(productGridAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+
+        });
+        //this.productsRef.removeEventListener(eventListener);
+
+        gridViewProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent, View view, int position, long id) {
+                Product product = products.get(position);
+                //productGridAdapter.notifyDataSetChanged();
+                //change view to product description activity
+            }
+        });
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.home_dashboard_items, productPreviewFragment);
+        fragmentTransaction.add(R.id.home_dashboard_items, productPreviewFragment);
         fragmentTransaction.commit();
     }
 
+    /**
+     * Adapter class for the product items displayed in GridView in the frame layout
+     */
+    public class ProductGridAdapter extends BaseAdapter {
+
+        private final List<Product> products;
+        private final Context context;
+
+        public ProductGridAdapter(Context context, List products) {
+            this.products = products;
+            this.context = context;
+        }
+
+        @Override
+        public int getCount() {
+            return products.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return products.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            // 1
+            //find product in database by key
+            final Product item = products.get(i);
+
+            // 2
+            if (view == null) {
+                final LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
+                view = layoutInflater.inflate(R.layout.fragment_product_preview, viewGroup, false);
+            }
+
+            // 3
+            final ImageView imageView = (ImageView) view.findViewById(R.id.image_product);
+            final TextView nameTextView = (TextView) view.findViewById(R.id.text_product_name);
+            final TextView brand = (TextView) view.findViewById(R.id.text_brand);
+
+            // 4
+            //set product image
+            Picasso.with(context).load(item.getImageUrl()).into(imageView);
+            nameTextView.setText(item.getName());
+            brand.setText(item.getBrand());
+            return view;
+        }
+    }
 }

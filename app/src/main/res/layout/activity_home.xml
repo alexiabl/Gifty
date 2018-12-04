@@ -19,12 +19,10 @@
             android:orientation="horizontal"
             >
 
-            <ImageButton
-                android:id="@+id/home_gifty_logo"
-                android:layout_width="@dimen/top_bar_logo_width"
-                android:layout_height="@dimen/top_bar_logo_height"
-                android:src="@drawable/ic_gifty_logo"
-                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_gifty_logo" />
 
                 <SearchView
                     android:id="@+id/home_search_bar"
@@ -40,7 +38,7 @@
                 </SearchView>
 
 
-            <android.support.v7.widget.AppCompatImageButton
+            <ImageView
                 android:id="@+id/home_shopping_cart"
                 android:layout_width="@dimen/top_bar_shoppingCart_width"
                 android:layout_height="@dimen/top_bar_shoppingCart_height"
@@ -49,13 +47,12 @@
 
         </LinearLayout>
 
-        <FrameLayout
+    <ScrollView
             android:id="@+id/home_dashboard_items"
             android:name="com.gifty.hci.gifty.ProductPreviewFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
-            android:layout_marginStart="20dp"
             tools:layout="@layout/fragment_product_preview">
 
             <GridView
@@ -66,7 +63,7 @@
 
             </GridView>
 
-        </FrameLayout>
+    </ScrollView>
 
     <android.support.design.widget.BottomNavigationView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
