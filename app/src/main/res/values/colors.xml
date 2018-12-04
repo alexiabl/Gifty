@@ -6,7 +6,7 @@
     <color name="colorBlue">#A9D5DC</color>
     <color name="colorText">#707070</color>
     <color name="colorGreen">#ADE25D</color>
-    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhite">#ffffff</color>
     <color name="colorTextSoft">#919191</color>
     <color name="colorDivision">#3a919191</color>
 </resources>

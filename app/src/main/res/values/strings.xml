@@ -18,4 +18,11 @@
     <string name="forgot_password2">Forgot Password</string>
     <string name="title_activity_edit_profile">EditProfileActivity</string>
     <string name="title_activity_wishlist">WishlistActivity</string>
+    <string name="hello_name">Hello \'Name\'</string>
+    <string name="choose_a_profile_picture_to_make_it_easier_for_your_family_and_friends_to_find_you">Choose a profile picture to make it easier for your family and friends to find you</string>
+    <string name="skip">Skip</string>
+    <string name="done">Done</string>
+    <string name="or">OR</string>
+    <string name="create_a_new_account">Create a new account</string>
+    <string name="an_email_was_sent_to_you_please_check_your_inbox">An email was sent to you. Please check your inbox.</string>
 </resources>

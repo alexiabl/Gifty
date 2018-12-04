@@ -83,7 +83,7 @@ public class ItemDescriptionActivity extends AppCompatActivity {
         btn_giftcart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GiftcartActivity giftcartActivity = new GiftcartActivity();
+                ShoppingCartActivity giftcartActivity = new ShoppingCartActivity();
             }
         });
 
