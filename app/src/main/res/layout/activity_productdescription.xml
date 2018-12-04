@@ -211,6 +211,8 @@
         android:background="@color/colorBlue"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:itemIconTint="@drawable/bottom_nav_colors"
+        app:itemTextColor="@drawable/bottom_nav_colors"
         app:menu="@menu/bottom_navigation">
 
     </android.support.design.widget.BottomNavigationView>
