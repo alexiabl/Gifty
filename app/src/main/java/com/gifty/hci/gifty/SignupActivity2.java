@@ -59,38 +59,35 @@ public class SignupActivity2 extends AppCompatActivity {
         Skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent SkipIntent = new Intent(SignupActivity2.this,HomeActivity.class);
+                Intent SkipIntent = new Intent(SignupActivity2.this, HomeActivity.class);
                 startActivity(SkipIntent);
             }
         });
         Done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent DoneIntent = new Intent(SignupActivity2.this,HomeActivity.class);
+                Intent DoneIntent = new Intent(SignupActivity2.this, HomeActivity.class);
                 startActivity(DoneIntent);
             }
         });
-
-
-
 
 
     }
 
     private void openGallery() {
 
-        Intent gallery = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(gallery,PICK_IMAGE);
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, PICK_IMAGE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode,resultCode,data);
-        if (resultCode == RESULT_OK && requestCode==PICK_IMAGE){
-            ImageUri=data.getData();
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
+            ImageUri = data.getData();
             Picture.setImageURI(ImageUri);
-            String user_id= mAuth.getCurrentUser().getUid();
-            DatabaseReference current_user =  mDatabase.child(user_id);
+            String user_id = mAuth.getCurrentUser().getUid();
+            DatabaseReference current_user = mDatabase.child(user_id);
             current_user.child("picture").setValue(Picture);
         }
     }

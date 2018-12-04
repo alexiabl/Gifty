@@ -28,7 +28,7 @@ public class ForgotPasswordActivity2 extends AppCompatActivity {
         Back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent BackIntent = new Intent(ForgotPasswordActivity2.this,ForgotPasswordActivity1.class);
+                Intent BackIntent = new Intent(ForgotPasswordActivity2.this, ForgotPasswordActivity1.class);
                 startActivity(BackIntent);
             }
         });

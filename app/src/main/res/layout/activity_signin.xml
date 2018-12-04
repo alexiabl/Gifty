@@ -122,7 +122,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:text="@string/or"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <View
             android:id="@+id/line2"
