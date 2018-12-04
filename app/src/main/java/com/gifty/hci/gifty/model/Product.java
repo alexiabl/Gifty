@@ -27,13 +27,12 @@ public class Product {
 
     private List<Review> reviewList;
 
-    public Product(String name, String price, String brand, boolean inStock, Long rating, List<Review> reviewList, String imageUrl) {
+    public Product(String name, String price, String brand, boolean inStock, Long rating, String imageUrl) {
         this.name = name;
         this.price = price;
         this.brand = brand;
         this.inStock = inStock;
         this.rating = rating;
-        this.reviewList = reviewList;
         this.imageUrl = imageUrl;
     }
 

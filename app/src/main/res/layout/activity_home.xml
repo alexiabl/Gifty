@@ -19,11 +19,6 @@
             android:orientation="horizontal"
             >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_gifty_logo" />
-
                 <SearchView
                     android:id="@+id/home_search_bar"
                     android:layout_width="@dimen/top_bar_search_width"
@@ -32,9 +27,7 @@
                     android:inputType="text"
                     android:searchIcon="@drawable/ic_search_black_24dp"
                     android:paddingLeft="10dp"
-                    android:background="@drawable/layout_emailboxwhite"
-                   >
-
+                    android:background="@drawable/layout_emailboxwhite">
                 </SearchView>
 
 
@@ -42,12 +35,16 @@
                 android:id="@+id/home_shopping_cart"
                 android:layout_width="@dimen/top_bar_shoppingCart_width"
                 android:layout_height="@dimen/top_bar_shoppingCart_height"
-                android:src="@drawable/ic_shopping_cart_black_24dp"
+                app:srcCompat="@drawable/ic_shopping_cart_black_24dp"
                 />
-
         </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scroll_dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
             android:id="@+id/home_dashboard_items"
             android:name="com.gifty.hci.gifty.ProductPreviewFragment"
             android:layout_width="match_parent"
@@ -63,7 +60,10 @@
 
             </GridView>
 
+        </RelativeLayout>
+
     </ScrollView>
+
 
     <android.support.design.widget.BottomNavigationView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorBlue"
         app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="@id/home_dashboard_items"
+        app:layout_constraintBottom_toBottomOf="@id/scroll_dashboard"
         app:itemIconTint="@drawable/bottom_nav_colors"
         app:itemTextColor="@drawable/bottom_nav_colors"
         app:menu="@menu/bottom_navigation" />

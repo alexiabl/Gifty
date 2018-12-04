@@ -91,7 +91,6 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_logout" />
 
-
         </LinearLayout>
 
         <android.support.design.widget.AppBarLayout

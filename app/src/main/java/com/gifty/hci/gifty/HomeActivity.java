@@ -43,14 +43,12 @@ import java.util.Map;
 public class HomeActivity extends AppCompatActivity {
 
     public HomeActivity instance = this;
+
+    //TODO: solve error with logo image view inflating
     public ImageView imageViewLogo;
+
     private GridView gridViewProducts;
     private ProductDao productDao = new ProductDao();
-    private DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-    ;
-    private DatabaseReference productsRef = dbRef.child("Products");
-    ;
-
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
@@ -88,45 +86,10 @@ public class HomeActivity extends AppCompatActivity {
         ProductPreviewFragment productPreviewFragment = new ProductPreviewFragment();
 
         this.gridViewProducts = findViewById(R.id.grid_dashboard_items);
-        //final ArrayList<Product> products = (ArrayList<Product>) this.productDao.getAllProducts();
+        final ArrayList<Product> products = (ArrayList<Product>) this.productDao.getAllProducts();
+        final HomeActivity.ProductGridAdapter productGridAdapter = new HomeActivity.ProductGridAdapter(getApplicationContext(), products);
+        gridViewProducts.setAdapter(productGridAdapter);
 
-        final List<Product> products = new ArrayList<>();
-        ValueEventListener eventListener = this.productsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    String name = (String) data.child("name").getValue();
-                    String brand = (String) data.child("brand").getValue();
-                    String price = (String) data.child("price").getValue();
-                    //int id = (Integer)data.child("id").getValue();
-                    Long rating = (Long) data.child("rating").getValue();
-                    boolean inStock = (Boolean) data.child("inStock").getValue();
-                    DataSnapshot reviews = data.child("reviews");
-                    List<Review> listReviews = new ArrayList<>();
-                    String imageUrl = (String) data.child("imageUrl").getValue();
-                    for (DataSnapshot review : reviews.getChildren()) {
-                        String date = (String) review.child("date").getValue();
-                        String description = (String) review.child("description").getValue();
-                        Long ratingRev = (Long) review.child("rating").getValue();
-                        String title = (String) review.child("title").getValue();
-                        Long idRev = (Long) review.child("id").getValue();
-                        Review reviewItem = new Review(title, description, date, ratingRev, idRev);
-                        listReviews.add(reviewItem);
-                    }
-                    Product product = new Product(name, price, brand, inStock, rating, listReviews, imageUrl);
-                    products.add(product);
-                }
-                final ProductGridAdapter productGridAdapter = new ProductGridAdapter(getApplicationContext(), products);
-                gridViewProducts.setAdapter(productGridAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-
-
-        });
         //this.productsRef.removeEventListener(eventListener);
 
         gridViewProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_product_preview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProductPreviewFragment">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/product_preview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
 
         <ImageView
             android:id="@+id/image_product"
@@ -20,7 +14,7 @@
             android:layout_marginStart="25dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="25dp"
-            android:background="@drawable/layout_emailboxwhite" />
+            android:background="@drawable/round_border" />
 
         <ImageView
             android:id="@+id/image_price"
@@ -43,7 +37,6 @@
             android:width="286.84dp"
             android:gravity="start"
             android:height="9.5dp"
-            android:text="Grey Scarf"
             android:textColor="@color/colorText"
             android:textSize="9sp" />
 
@@ -57,9 +50,7 @@
             android:layout_alignEnd="@+id/image_product"
             android:layout_toRightOf="@+id/text_product_name"
             android:gravity="end"
-            android:text="Brand"
             android:textSize="9sp" />
 
-    </RelativeLayout>
 
-</FrameLayout>
+</RelativeLayout>

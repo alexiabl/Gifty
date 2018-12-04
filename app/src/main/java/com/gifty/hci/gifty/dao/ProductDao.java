@@ -2,7 +2,9 @@ package com.gifty.hci.gifty.dao;
 
 import android.support.annotation.NonNull;
 
+import com.gifty.hci.gifty.HomeActivity;
 import com.gifty.hci.gifty.model.Product;
+import com.gifty.hci.gifty.model.Review;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,27 +37,28 @@ public class ProductDao {
      * @return a list of Product objects
      */
     public List<Product> getAllProducts(){
-        final List<Product> allProducts = new ArrayList<>();
-        Query query = this.productsRef.orderByKey();
-        query.addValueEventListener(new ValueEventListener() {
+        final List<Product> products = new ArrayList<>();
+        ValueEventListener eventListener = this.productsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    Product product = data.getValue(Product.class);
-                    allProducts.add(product);
-                    System.out.println(product.getName() + " " + product.getPrice());
-                    }
+                    String name = (String) data.child("name").getValue();
+                    String brand = (String) data.child("brand").getValue();
+                    String price = (String) data.child("price").getValue();
+                    //int id = (Integer)data.child("id").getValue();
+                    Long rating = (Long) data.child("rating").getValue();
+                    boolean inStock = (Boolean) data.child("inStock").getValue();
+                    String imageUrl = (String) data.child("imageUrl").getValue();
+                    Product product = new Product(name, price, brand, inStock, rating, imageUrl);
+                    products.add(product);
                 }
-
-
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-
-
         });
-        return allProducts;
+        return products;
     }
 
 

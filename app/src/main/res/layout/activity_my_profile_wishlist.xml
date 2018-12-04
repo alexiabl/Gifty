@@ -34,9 +34,10 @@
     </LinearLayout>
 
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/frame_my_wishlist"
         android:layout_width="match_parent"
+        app:layout_constraintBottom_toBottomOf="@+id/top_bar_action"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -68,11 +69,11 @@
 
         <LinearLayout
             android:id="@+id/layout_my_wishlist_info2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
             android:layout_marginEnd="15dp"
             android:layout_marginTop="85dp"
+            app:layout_constraintBottom_toBottomOf="@id/layout_my_wishlist_info"
             android:orientation="horizontal">
 
             <TextView
@@ -87,29 +88,38 @@
             <Button
                 android:id="@+id/btn_filters"
                 android:layout_width="75dp"
-                android:layout_height="match_parent"
+                android:layout_height="20dp"
                 android:gravity="end|center"
                 android:background="@drawable/layout_emailboxwhite" />
 
         </LinearLayout>
 
-    </FrameLayout>
+    </RelativeLayout>
 
-    <FrameLayout
-        android:id="@+id/frame_my_wishlist_items"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:id="@+id/scroll_my_wishlist"
+        android:layout_marginTop="115dp"
+        android:layout_width="match_parent"
         app:layout_constraintBottom_toBottomOf="@id/frame_my_wishlist"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <GridView
-            android:id="@+id/grid_my_wishlist_items"
-            android:numColumns="2"
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:id="@+id/frame_my_wishlist_items"
+            android:layout_width="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/frame_my_wishlist"
             android:layout_height="wrap_content">
 
-        </GridView>
+            <GridView
+                android:id="@+id/grid_my_wishlist_items"
+                android:numColumns="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    </FrameLayout>
+            </GridView>
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 
     <android.support.design.widget.BottomNavigationView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -119,7 +129,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorBlue"
         app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="@id/frame_my_wishlist"
+        app:layout_constraintBottom_toBottomOf="@id/scroll_my_wishlist"
         app:itemIconTint="@drawable/bottom_nav_colors"
         app:itemTextColor="@drawable/bottom_nav_colors"
         app:menu="@menu/bottom_navigation" />

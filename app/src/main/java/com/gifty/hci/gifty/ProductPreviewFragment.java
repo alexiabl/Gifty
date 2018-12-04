@@ -23,19 +23,11 @@ import java.util.List;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ProductPreviewFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
+ * Product Preview fragment class to display an individual product preview item
+ * @author alexiaborchgrevink
  */
 public class ProductPreviewFragment extends Fragment {
 
-
-    private OnFragmentInteractionListener mListener;
-
-    private ProductDao productDao = new ProductDao();
-
-    private GridView gridView;
 
     public ProductPreviewFragment() {
         // Required empty public constructor
@@ -54,28 +46,5 @@ public class ProductPreviewFragment extends Fragment {
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 
 }
