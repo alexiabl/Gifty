@@ -14,13 +14,14 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:id="@+id/btn_settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_settings_black_24dp" />
     </LinearLayout>
 
 
-    <com.gifty.hci.gifty.RoundedImageView
+    <ImageView
         android:id="@+id/profile_picture"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -33,7 +34,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.07"/>
-
 
     <Space
         android:id="@+id/helper_view"
@@ -55,7 +55,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Alexia Borchgrevink"
             android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,6 +86,7 @@
                 android:text="@string/profile_friends" />
 
             <ImageButton
+                android:id="@+id/btn_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_logout" />
@@ -103,8 +103,9 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <FrameLayout
+        <RelativeLayout
             android:id="@+id/fragment_user_wishlist"
+            android:name="com.gifty.hci.gifty.ProfileWishlistFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="80dp"
@@ -116,7 +117,7 @@
                 android:layout_width="match_parent"
 
                 />
-        </FrameLayout>
+        </RelativeLayout>
 
 
         <View

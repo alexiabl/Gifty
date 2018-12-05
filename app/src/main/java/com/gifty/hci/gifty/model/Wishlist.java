@@ -14,13 +14,12 @@ public class Wishlist {
     private String name;
     private String imageUrl;
     private String deadline;
-    private int numItems;
+    private Long numItems;
     private boolean expired;
     private List<Product> items;
 
-    public Wishlist(String name, String image, String deadline, int numItems, boolean expired) {
+    public Wishlist(String name, String deadline, Long numItems, boolean expired) {
         this.name = name;
-        this.imageUrl = image;
         this.deadline = deadline;
         this.numItems = numItems;
         this.expired = expired;
@@ -50,11 +49,11 @@ public class Wishlist {
         this.deadline = deadline;
     }
 
-    public int getNumItems() {
+    public Long getNumItems() {
         return numItems;
     }
 
-    public void setNumItems(int numItems) {
+    public void setNumItems(Long numItems) {
         this.numItems = numItems;
     }
 

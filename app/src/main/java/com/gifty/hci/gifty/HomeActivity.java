@@ -38,6 +38,7 @@ import java.util.Map;
 
 /**
  * Class for the main Home/Dashboard page
+ *
  * @author Alexia Borchgrevink
  */
 public class HomeActivity extends AppCompatActivity {
@@ -49,6 +50,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private GridView gridViewProducts;
     private ProductDao productDao = new ProductDao();
+    private DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference productsRef = dbRef.child("Products");
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
@@ -56,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             Intent intent = null;
-            switch(menuItem.getItemId()){
+            switch (menuItem.getItemId()) {
                 case R.id.nav_home:
                     intent = new Intent(instance, instance.getClass());
                     menuItem.setChecked(true);
@@ -71,7 +74,7 @@ public class HomeActivity extends AppCompatActivity {
                     intent = new Intent(instance, ProfileActivity.class);
                     break;
             }
-            getApplicationContext().startActivity(intent);
+            startActivity(intent);
             return true;
         }
     };
@@ -85,17 +88,25 @@ public class HomeActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         ProductPreviewFragment productPreviewFragment = new ProductPreviewFragment();
 
+        this.imageViewLogo = findViewById(R.id.home_gifty_logo);
+        Picasso.with(this).load("https://firebasestorage.googleapis.com/v0/b/gifty-bd69a.appspot.com/o/gifty_logo.png?alt=media&token=b372eabd-9322-4aab-ad6d-49ee6918a559").into(imageViewLogo);
         this.gridViewProducts = findViewById(R.id.grid_dashboard_items);
-        final ArrayList<Product> products = (ArrayList<Product>) this.productDao.getAllProducts();
-        final HomeActivity.ProductGridAdapter productGridAdapter = new HomeActivity.ProductGridAdapter(getApplicationContext(), products);
-        gridViewProducts.setAdapter(productGridAdapter);
+        this.productsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                getAllProducts(dataSnapshot);
+            }
 
-        //this.productsRef.removeEventListener(eventListener);
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         gridViewProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View view, int position, long id) {
-                Product product = products.get(position);
+                //Product product = products.get(position);
                 //productGridAdapter.notifyDataSetChanged();
                 //change view to product description activity
             }
@@ -103,6 +114,33 @@ public class HomeActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.home_dashboard_items, productPreviewFragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    public void getAllProducts(DataSnapshot dataSnapshot) {
+        ArrayList<Product> products = new ArrayList<>();
+        for (DataSnapshot data : dataSnapshot.getChildren()) {
+            String name = (String) data.child("name").getValue();
+            String brand = (String) data.child("brand").getValue();
+            String price = (String) data.child("price").getValue();
+            //int id = (Integer)data.child("id").getValue();
+            Long rating = (Long) data.child("rating").getValue();
+            boolean inStock = (Boolean) data.child("inStock").getValue();
+            String imageUrl = (String) data.child("imageUrl").getValue();
+            Product product = new Product(name, price, brand, inStock, rating, imageUrl);
+            products.add(product);
+        }
+        HomeActivity.ProductGridAdapter productGridAdapter = new HomeActivity.ProductGridAdapter(this, products);
+        this.gridViewProducts.setAdapter(productGridAdapter);
     }
 
     /**

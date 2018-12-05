@@ -18,6 +18,8 @@ public class User {
     private List<User> followers;
     private List<User> following;
     private ShoppingCart shoppingCart;
+    private Long numFollowers;
+    private Long numWishlists;
 
     public User(String email, String firstName, String lastName, String birthdate, String password) {
         this.email = email;
@@ -25,6 +27,9 @@ public class User {
         this.lastName = lastName;
         this.birthdate = birthdate;
         this.password = password;
+    }
+
+    public User() {
     }
 
     public String getEmail() {
@@ -89,5 +94,21 @@ public class User {
 
     public void setShoppingCart(ShoppingCart shoppingCart) {
         this.shoppingCart = shoppingCart;
+    }
+
+    public Long getNumFollowers() {
+        return numFollowers;
+    }
+
+    public void setNumFollowers(Long numFollowers) {
+        this.numFollowers = numFollowers;
+    }
+
+    public Long getNumWishlists() {
+        return numWishlists;
+    }
+
+    public void setNumWishlists(Long numWishlists) {
+        this.numWishlists = numWishlists;
     }
 }

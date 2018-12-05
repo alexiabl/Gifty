@@ -49,6 +49,7 @@ public class MyProfileWishlistActivity extends AppCompatActivity {
                     break;
                 case R.id.nav_profile:
                     intent = new Intent(instance, ProfileActivity.class);
+                    menuItem.setChecked(true);
                     break;
             }
             getApplicationContext().startActivity(intent);
@@ -65,7 +66,7 @@ public class MyProfileWishlistActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         ProductPreviewFragment productPreviewFragment = new ProductPreviewFragment();
 
-        this.gridViewProducts = findViewById(R.id.grid_dashboard_items);
+        this.gridViewProducts = findViewById(R.id.grid_my_wishlist_items);
         final ArrayList<Product> products = (ArrayList<Product>) this.productDao.getAllProducts();
         final MyProfileWishlistActivity.ProductGridAdapter productGridAdapter = new MyProfileWishlistActivity.ProductGridAdapter(getApplicationContext(), products);
         gridViewProducts.setAdapter(productGridAdapter);
@@ -79,7 +80,7 @@ public class MyProfileWishlistActivity extends AppCompatActivity {
             }
         });
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.home_dashboard_items, productPreviewFragment);
+        fragmentTransaction.add(R.id.frame_my_wishlist_items, productPreviewFragment);
         fragmentTransaction.commit();
     }
 

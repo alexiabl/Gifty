@@ -1,5 +1,6 @@
 package com.gifty.hci.gifty.dao;
 
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
 import com.gifty.hci.gifty.HomeActivity;
@@ -16,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @author Alexia Borchgrevink
@@ -36,7 +38,8 @@ public class ProductDao {
      *
      * @return a list of Product objects
      */
-    public List<Product> getAllProducts(){
+    public List<Product> getAllProducts() {
+        //final CountDownLatch done = new CountDownLatch(1);
         final List<Product> products = new ArrayList<>();
         ValueEventListener eventListener = this.productsRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -52,12 +55,14 @@ public class ProductDao {
                     Product product = new Product(name, price, brand, inStock, rating, imageUrl);
                     products.add(product);
                 }
+                //done.countDown();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+        //done.await();
         return products;
     }
 
