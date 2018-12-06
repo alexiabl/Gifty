@@ -77,7 +77,6 @@ public class ItemDescriptionActivity extends AppCompatActivity {
         Uri myUri = Uri.parse(product.getImageUrl());
         product_image.setImageURI(myUri);
 
-        Button btn_wishlist = findViewById(R.id.btn_wishllist);
         Button btn_giftcart = findViewById(R.id.btn_giftcart);
 
         btn_giftcart.setOnClickListener(new View.OnClickListener() {
@@ -91,8 +90,13 @@ public class ItemDescriptionActivity extends AppCompatActivity {
 
     public void btnInsert(View view) {
         ref.addValueEventListener(new ValueEventListener() {
+
+            private ProductDao productDao1;
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<Product> products = (ArrayList<Product>) this.productDao1.getAllProducts();
+                Product product = products.get(0);
                 ref.child("5").setValue(product);
                 Toast.makeText(ItemDescriptionActivity.this, "Item added to wishlist", Toast.LENGTH_LONG);
                 Intent intent = new Intent(instance, WishlistActivity.class);
