@@ -42,7 +42,7 @@ public class SignupActivity1 extends AppCompatActivity {
     private ProgressDialog mProgress;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createaccount1);
 
@@ -89,6 +89,11 @@ public class SignupActivity1 extends AppCompatActivity {
         String confirmpassword = ConfirmPasswword.getText().toString().trim();
 
         if(!TextUtils.isEmpty(firstname) && !TextUtils.isEmpty(lastname) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(confirmpassword)){
+
+            if (!password.equals(confirmpassword)) {
+                Toast.makeText(SignupActivity1.this, "Passwords don't match", Toast.LENGTH_LONG).show();
+                return;
+            }
 
             mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override

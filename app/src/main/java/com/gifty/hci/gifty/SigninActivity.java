@@ -1,7 +1,10 @@
 package com.gifty.hci.gifty;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +12,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,8 +21,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 public class SigninActivity extends AppCompatActivity {
+
 
     private EditText Email;
     private EditText Password;
@@ -26,11 +34,14 @@ public class SigninActivity extends AppCompatActivity {
     private Button Signup;
     private Button ForgotPasswrod;
     private FirebaseAuth mAuth;
+    private ImageView Logo;
+
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
+
 
         Email = (EditText) findViewById(R.id.etEmail);
         Password = (EditText) findViewById(R.id.etPassword);
@@ -38,6 +49,10 @@ public class SigninActivity extends AppCompatActivity {
         Signup = (Button) findViewById(R.id.btnSignup);
         ForgotPasswrod = (Button) findViewById(R.id.btnForgotPassword);
         mAuth = FirebaseAuth.getInstance();
+        Logo = (ImageView) findViewById(R.id.ivLogo);
+
+        String LogoUrilString = "https://firebasestorage.googleapis.com/v0/b/gifty-bd69a.appspot.com/o/gifty_logo.png?alt=media&token=b372eabd-9322-4aab-ad6d-49ee6918a559";
+        Picasso.with(this).load(LogoUrilString).into(Logo);
 
         Signup.setOnClickListener(new View.OnClickListener() {
             @Override

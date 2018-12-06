@@ -8,14 +8,13 @@
     android:background="@android:color/background_light"
     android:orientation="vertical">
 
+
     <ImageView
-        android:id="@+id/Gifty_logo"
+        android:id="@+id/ivLogo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/todo"
-        android:src="@drawable/ic_gifty_logo"
-        tools:layout_height="230dp"
-        tools:paddingTop="20dp" />
+        android:layout_height="140dp"
+        android:layout_marginTop="5dp"
+        app:srcCompat="@drawable/ic_user" />
 
     <LinearLayout
         android:id="@+id/Box"
@@ -75,27 +74,22 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
+            android:background="@color/colorBlue"
             android:text="@string/forgot_password"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
-        <LinearLayout
+        <Button
+            android:id="@+id/btnSignin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="3dp"
             android:background="@drawable/layout_signinbtn"
-            android:orientation="vertical"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-
-            <Button
-                android:id="@+id/btnSignin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/sign_in"
-                android:textSize="30sp" />
-        </LinearLayout>
+            android:paddingRight="10dp"
+            android:text="@string/sign_in"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
@@ -145,6 +139,6 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="@string/create_a_new_account"
-        android:textSize="30sp" />
+        android:textSize="20sp" />
 
 </LinearLayout>
