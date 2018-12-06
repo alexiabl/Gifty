@@ -25,6 +25,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+/**
+ * Activity for the user's profile
+ *
+ * @author Marwan Bushara
+ */
+
 public class SigninActivity extends AppCompatActivity {
 
 
@@ -73,7 +79,7 @@ public class SigninActivity extends AppCompatActivity {
         Signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
                 checkLogin();
             }
         });
@@ -113,11 +119,11 @@ public class SigninActivity extends AppCompatActivity {
                     }
                 }
             });
-            }else {
+        }else {
             Toast.makeText(SigninActivity.this,"Empty Fields", Toast.LENGTH_LONG).show();
         }
 
-        }
-
     }
+
+}
 

@@ -24,6 +24,12 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * Activity for the user's profile
+ *
+ * @author Marwan Bushara
+ */
+
 public class SignupActivity1 extends AppCompatActivity {
 
     private EditText FirstName;
@@ -76,7 +82,7 @@ public class SignupActivity1 extends AppCompatActivity {
                 startRegister();
             }
         });
-        
+
     }
 
     private void startRegister() {

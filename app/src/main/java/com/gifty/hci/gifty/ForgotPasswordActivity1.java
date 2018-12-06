@@ -16,6 +16,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * Activity for the user's profile
+ *
+ * @author Marwan Bushara
+ */
+
 public class ForgotPasswordActivity1 extends AppCompatActivity {
 
     private EditText Email;
@@ -62,8 +68,6 @@ public class ForgotPasswordActivity1 extends AppCompatActivity {
                 }
             }
         });
-
-
 
 
     }

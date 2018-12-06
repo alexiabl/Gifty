@@ -20,6 +20,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+/**
+ * Activity for the user's profile
+ *
+ * @author Marwan Bushara
+ */
+
 public class SignupActivity2 extends AppCompatActivity {
 
 
@@ -57,7 +63,6 @@ public class SignupActivity2 extends AppCompatActivity {
         mStorage = FirebaseStorage.getInstance().getReference().child("user_profilepic/");
 
 
-
         AddPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,9 +84,6 @@ public class SignupActivity2 extends AppCompatActivity {
                 startActivity(DoneIntent);
             }
         });
-
-
-
 
 
     }
@@ -108,8 +110,6 @@ public class SignupActivity2 extends AppCompatActivity {
                     current_user.child("picture").setValue(uri.toString());
                 }
             });
-
-
 
 
         }
