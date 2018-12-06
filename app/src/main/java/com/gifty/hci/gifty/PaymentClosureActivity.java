@@ -3,20 +3,16 @@ package com.gifty.hci.gifty;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-/**
- * Class for the GiftCart page page
- *
- * @author Shunya Kogure
- */
-public class ShoppingCartActivity extends AppCompatActivity {
-    public ShoppingCartActivity instance = this;
+public class PaymentClosureActivity extends AppCompatActivity {
+
+    public PaymentClosureActivity instance = this;
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -42,34 +38,24 @@ public class ShoppingCartActivity extends AppCompatActivity {
         }
     };
 
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoppingcart);
-        Button btn_proceed = new Button(findViewById(R.id.btn_payment));
-        Button btn_back = new Button(findViewById(R.id.btn_return_shoppingcart));
+        Button btn_thankyou = new Button(findViewById(R.id.btn_thankyou));
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.nav_bar);
-        navigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-
-        ShoppingCartItemFragment shoppingCartItemFragment = new ShoppingCartItemFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.shopping_cart_items, shoppingCartItemFragment);
-        fragmentTransaction.commit();
-
-        btn_proceed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(instance, PaymentActivity.class);
-                getApplicationContext().startActivity(intent);
-            }
-        });
-
-        btn_back.setOnClickListener(new View.OnClickListener() {
+        btn_thankyou.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(instance, HomeActivity.class);
                 getApplicationContext().startActivity(intent);
             }
         });
+
+
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.nav_bar);
+        navigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+
+
     }
 }

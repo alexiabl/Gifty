@@ -7,23 +7,23 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.gifty.hci.gifty.dao.ProductDao;
+import com.gifty.hci.gifty.dao.UserDao;
 import com.gifty.hci.gifty.model.Product;
-
+import com.gifty.hci.gifty.model.User;
+import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCartItemFragment extends Fragment {
 
-
     private ShoppingCartItemFragment.OnFragmentInteractionListener mListener;
 
-    private ProductDao productDao;
+    private UserDao userDao = new UserDao();
 
     public ShoppingCartItemFragment() {
         // Required empty public constructor
@@ -40,20 +40,11 @@ public class ShoppingCartItemFragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_shoppingcart, null);
         ListView listView = view.findViewById(R.id.gifts);
-        final ArrayList<Product> products = (ArrayList<Product>) this.productDao.getAllProducts();
-        final ShoppingCartItemFragment.MyAdapter myAdapter = new MyAdapter(getActivity(), products);
+        final ArrayList<User> users = (ArrayList<User>) this.userDao.getAllUsers();
+        final ShoppingCartItemFragment.MyAdapter myAdapter = new MyAdapter(getActivity(), users);
         listView.setAdapter(myAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView parent, View view, int position, long id) {
-                Product product = products.get(position);
-                myAdapter.notifyDataSetChanged();
-                //change view to product description
-            }
-        });
         return view;
-
     }
 
     public interface OnFragmentInteractionListener {
@@ -61,14 +52,13 @@ public class ShoppingCartItemFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-
     class MyAdapter extends BaseAdapter {
         List<Product> giftcart;
         Context context;
         LayoutInflater layoutInflater = null;
 
-        public MyAdapter(Context context, List<Product> giftcart) {
-            this.giftcart = giftcart;
+        public MyAdapter(Context context, List<User> users) {
+            this.giftcart = users.get(0).getShoppingCart().getItems();
             this.context = context;
             this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
@@ -90,31 +80,30 @@ public class ShoppingCartItemFragment extends Fragment {
         }
 
         @Override
-        public View getView(int i, View convertView, ViewGroup parent) {
-            convertView = layoutInflater.inflate(R.layout.fragment_shoppingcart, parent, false);
+        public View getView(int i, View view, ViewGroup parent) {
 
-            //Use Picasso for image view
+            final Product item = giftcart.get(i);
 
-//            ((ImageView) convertView.findViewById(R.id.image_product)).setImageBitmap(giftcart.get(i).getImageUrl());
-            final TextView textView = convertView.findViewById(R.id.text_product_name);
-            final TextView textView1 = convertView.findViewById(R.id.text_price);
-            final TextView textView2 = convertView.findViewById(R.id.text_brand);
-
-            if (giftcart.get(i).isInStock()) {
-                TextView textView3 = convertView.findViewById(R.id.text_quantity);
-                textView3.setText(String.valueOf("In stock"));
-            } else {
-                TextView textView3 = convertView.findViewById(R.id.text_quantity);
-                textView3.setText(String.valueOf("Out of stock"));
+            if (view == null) {
+                final LayoutInflater layoutInflater = LayoutInflater.from(context);
+                view = layoutInflater.inflate(R.layout.fragment_shoppingcart, null);
             }
 
-            textView.setText(giftcart.get(i).getName());
-            textView1.setText(String.valueOf(giftcart.get(i).getPrice()));
-            textView2.setText(String.valueOf(giftcart.get(i).getBrand()));
+            final ImageView imageView = view.findViewById(R.id.image_product);
+            final TextView nametextView = view.findViewById(R.id.text_product_name);
+            final TextView gifted_to = view.findViewById(R.id.text_gift_to);
+            final TextView quantity = view.findViewById(R.id.text_quantity);
+            final TextView price = view.findViewById(R.id.text_quantity);
+            final TextView brand = view.findViewById(R.id.text_brand_name);
 
-            return convertView;
+            Picasso.with(context).load(item.getImageUrl()).into(imageView);
+            nametextView.setText(item.getName());
+            gifted_to.setText("Emil Nielsen");
+            quantity.setText("Qty: 1");
+            price.setText((int) item.getPrice());
+            brand.setText(item.getBrand());
+
+            return view;
         }
     }
-
-
 }

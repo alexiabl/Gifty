@@ -10,13 +10,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.gifty.hci.gifty.model.ShoppingCart;
+
 /**
  * Class for the GiftCart page page
  *
  * @author Shunya Kogure
  */
-public class ShoppingCartActivity extends AppCompatActivity {
-    public ShoppingCartActivity instance = this;
+public class PaymentActivity extends AppCompatActivity {
+
+    public PaymentActivity instance = this;
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -45,8 +48,15 @@ public class ShoppingCartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoppingcart);
-        Button btn_proceed = new Button(findViewById(R.id.btn_payment));
-        Button btn_back = new Button(findViewById(R.id.btn_return_shoppingcart));
+        Button btn_back = new Button(findViewById(R.id.btn_return_payment));
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(instance, ShoppingCart.class);
+                getApplicationContext().startActivity(intent);
+            }
+        });
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.nav_bar);
         navigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
@@ -55,21 +65,5 @@ public class ShoppingCartActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.shopping_cart_items, shoppingCartItemFragment);
         fragmentTransaction.commit();
-
-        btn_proceed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(instance, PaymentActivity.class);
-                getApplicationContext().startActivity(intent);
-            }
-        });
-
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(instance, HomeActivity.class);
-                getApplicationContext().startActivity(intent);
-            }
-        });
     }
 }
