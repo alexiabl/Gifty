@@ -9,5 +9,6 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorTextSoft">#919191</color>
     <color name="colorDivision">#3a919191</color>
+    <color name="colorTopBar">#F7F7F7</color>
 </resources>
 

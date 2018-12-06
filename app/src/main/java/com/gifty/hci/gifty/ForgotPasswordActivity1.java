@@ -42,7 +42,7 @@ public class ForgotPasswordActivity1 extends AppCompatActivity {
         Back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent BackIntent = new Intent(ForgotPasswordActivity1.this,SigninActivity.class);
+                Intent BackIntent = new Intent(ForgotPasswordActivity1.this, SigninActivity.class);
                 startActivity(BackIntent);
             }
         });
@@ -52,16 +52,16 @@ public class ForgotPasswordActivity1 extends AppCompatActivity {
             public void onClick(View v) {
                 String email = Email.getText().toString().trim();
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(ForgotPasswordActivity1.this,"Empty Fields", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ForgotPasswordActivity1.this, "Empty Fields", Toast.LENGTH_LONG).show();
                 } else {
                     mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
-                                Intent SendIntent = new Intent(ForgotPasswordActivity1.this,ForgotPasswordActivity4.class);
+                            if (task.isSuccessful()) {
+                                Intent SendIntent = new Intent(ForgotPasswordActivity1.this, ForgotPasswordActivity4.class);
                                 startActivity(SendIntent);
                             } else {
-                                Toast.makeText(ForgotPasswordActivity1.this,"Invalid Email", Toast.LENGTH_LONG).show();
+                                Toast.makeText(ForgotPasswordActivity1.this, "Invalid Email", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
