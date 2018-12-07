@@ -1,18 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    tools:context=".ShoppingCartActivity">
+    android:background="@android:color/white">
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#3a919191"
         android:padding="5dp"
-        android:text="@string/gift_cart"
+        android:text="Payment"
         android:textAlignment="center"
         android:textSize="20dp" />
 
@@ -20,50 +20,55 @@
         android:id="@+id/shopping_cart_items"
         android:name="com.gifty.hci.gifty.ShoppingCartItemFragment"
         android:layout_width="match_parent"
-        android:layout_height="410dp"
+        android:layout_height="390dp"
         android:layout_gravity="top"
         android:layout_margin="10dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_confirm"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
         tools:layout="@layout/fragment_shoppingcart">
 
         <ListView
             android:id="@+id/gifts"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="389dp"
             android:background="@android:color/white"></ListView>
+
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/total_payment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:paddingRight="10dp"
-        android:text="Total: $75.00"
-        android:textAlignment="viewEnd"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_payment"
-        app:layout_constraintTop_toBottomOf="@+id/shopping_cart_items"
-        tools:layout_editor_absoluteX="10dp" />
-
     <Button
-        android:id="@+id/btn_payment"
+        android:id="@+id/btn_confirm"
         android:layout_width="264dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="96dp"
         android:background="@drawable/layout_signinbtn"
         android:gravity="center"
         android:padding="5dp"
-        android:text="Proceed to Payment"
+        android:text="Purchase"
         android:textAlignment="center"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/nav_bar"
-        tools:layout_editor_absoluteX="60dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/confirmation"
+        android:layout_width="293dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:text="After pressing the button above, the purchase will be completed and payment will be confirmed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_confirm" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/nav_bar"
@@ -77,11 +82,11 @@
 
     </android.support.design.widget.BottomNavigationView>
 
-    <ImageButton
-        android:id="@+id/btn_return_shoppingcart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/btn_return_payment"
+        android:layout_width="38dp"
+        android:layout_height="34dp"
         app:srcCompat="@android:drawable/ic_menu_revert"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="3dp" />
+        tools:layout_editor_absoluteY="1dp" />
 </android.support.constraint.ConstraintLayout>

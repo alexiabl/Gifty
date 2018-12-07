@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".NotificationsActivity">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3a919191"
+        android:padding="5dp"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        tools:text="Reviews" />
+
+
+    <Button
+        android:id="@+id/btn_write_review"
+        android:layout_width="291dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_margin="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/layout_signinbtn"
+        android:gravity="center"
+        android:text="Write review"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        tools:layout_editor_absoluteX="47dp" />
+
+    <FrameLayout
+        android:id="@+id/review_items"
+        android:name="com.gifty.hci.gifty.ShoppingCartItemFragment"
+        android:layout_width="418dp"
+        android:layout_height="460dp"
+        android:layout_gravity="top"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/nav_bar"
+        app:layout_constraintTop_toBottomOf="@+id/btn_write_review"
+        tools:layout="@layout/fragment_notifications"
+        tools:layout_editor_absoluteX="1dp">
+
+        <ListView
+            android:id="@+id/reviews"
+            android:layout_width="wrap_content"
+            android:layout_height="527dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@android:color/white"></ListView>
+    </FrameLayout>
+
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/colorBlue"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation">
+
+    </android.support.design.widget.BottomNavigationView>
+</android.support.constraint.ConstraintLayout>

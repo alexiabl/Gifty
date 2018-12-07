@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/profile_wishlist_preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/null"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:background="@android:color/white"
+        android:orientation="horizontal">
+
+
+        <com.gifty.hci.gifty.RoundedImageView
+            android:id="@+id/image_product"
+            android:layout_width="@dimen/wishlist_image_preview_size"
+            android:layout_height="@dimen/wishlist_image_preview_size"
+            android:layout_alignStart="@+id/text_gift_to"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="-98dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_gifty_logo" />
+
+        <TextView
+            android:id="@+id/review_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="97dp"
+            android:layout_marginTop="25dp"
+            android:text="Good!!"
+            android:textColor="@color/colorText"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/text_quantity"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/review_title"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="97dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="64dp"
+            android:layout_marginBottom="20dp"
+            android:text="Good but I don't feel any difference"
+            android:textAlignment="viewStart" />
+
+        <ImageView
+            android:id="@+id/notifcation_image"
+            android:layout_width="73dp"
+            android:layout_height="69dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="27dp"
+            app:srcCompat="@drawable/ic_user" />
+
+        <TextView
+            android:id="@+id/review_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            android:text="04/01/2018" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notifications fragment"
+
+        />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="126dp"
+        android:layout_height="15dp"
+        android:layout_alignBottom="@+id/null"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="5dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="1dp"
+        android:numStars="5"
+        android:rating="5"
+        android:stepSize="5" />
+
+</RelativeLayout>
