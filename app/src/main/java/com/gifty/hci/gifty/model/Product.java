@@ -15,24 +15,25 @@ public class Product {
 
     private String name;
 
-    private double price;
+    private String price;
 
     private String brand;
 
     private boolean inStock;
 
-    private int rating;
+    private Long rating;
 
     private String imageUrl;
 
     private List<Review> reviewList;
 
-    public Product(String name, double price, String brand, boolean inStock, int rating) {
+    public Product(String name, String price, String brand, boolean inStock, Long rating, String imageUrl) {
         this.name = name;
         this.price = price;
         this.brand = brand;
         this.inStock = inStock;
         this.rating = rating;
+        this.imageUrl = imageUrl;
     }
 
     public String getName() {
@@ -43,11 +44,11 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -67,11 +68,11 @@ public class Product {
         this.inStock = inStock;
     }
 
-    public int getRating() {
+    public Long getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(Long rating) {
         this.rating = rating;
     }
 

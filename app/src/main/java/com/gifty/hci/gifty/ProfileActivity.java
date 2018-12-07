@@ -31,9 +31,10 @@ public class ProfileActivity extends AppCompatActivity {
                     intent = new Intent(instance, SearchFriendsActivity.class);
                     break;
                 case R.id.nav_notifications:
-                    //intent = new Intent(instance,NotificationsActivity.class);
+                    intent = new Intent(instance, NotificationsActivity.class);
                     break;
                 case R.id.nav_profile:
+                    menuItem.setChecked(true);
                     intent = new Intent(instance, instance.getClass());
                     break;
             }

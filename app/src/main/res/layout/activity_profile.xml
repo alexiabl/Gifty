@@ -91,7 +91,6 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_logout" />
 
-
         </LinearLayout>
 
         <android.support.design.widget.AppBarLayout
@@ -140,6 +139,8 @@
         android:layout_alignParentBottom="true"
         android:background="@color/colorBlue"
         app:layout_constraintBottom_toBottomOf="@+id/profile_layout"
+        app:itemIconTint="@drawable/bottom_nav_colors"
+        app:itemTextColor="@drawable/bottom_nav_colors"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_navigation" />
 

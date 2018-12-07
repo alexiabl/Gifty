@@ -11,13 +11,15 @@ public class Review {
     private String title;
     private String description;
     private String date;
-    private int rating;
+    private Long rating;
+    private Long id;
 
-    public Review(String title, String description, String date, int rating) {
+    public Review(String title, String description, String date, Long rating, Long id) {
         this.title = title;
         this.description = description;
         this.date = date;
         this.rating = rating;
+        this.id = id;
     }
 
     public String getTitle() {
@@ -44,11 +46,11 @@ public class Review {
         this.date = date;
     }
 
-    public int getRating() {
+    public Long getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(Long rating) {
         this.rating = rating;
     }
 }

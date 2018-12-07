@@ -1,13 +1,11 @@
 package com.gifty.hci.gifty;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -21,44 +19,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gifty.hci.gifty.dao.ProductDao;
-import com.gifty.hci.gifty.model.*;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
+import com.gifty.hci.gifty.model.Product;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+public class MyProfileWishlistActivity extends AppCompatActivity {
 
-/**
- * Class for the main Home/Dashboard page
- * @author Alexia Borchgrevink
- */
-public class HomeActivity extends AppCompatActivity {
-
-    public HomeActivity instance = this;
-
-    //TODO: solve error with logo image view inflating
-    public ImageView imageViewLogo;
-
+    MyProfileWishlistActivity instance = this;
     private GridView gridViewProducts;
     private ProductDao productDao = new ProductDao();
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             Intent intent = null;
-            switch(menuItem.getItemId()){
+            switch (menuItem.getItemId()) {
                 case R.id.nav_home:
-                    intent = new Intent(instance, instance.getClass());
+                    intent = new Intent(instance, HomeActivity.class);
                     menuItem.setChecked(true);
                     break;
                 case R.id.nav_search_friends:
@@ -79,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_my_profile_wishlist);
 
         BottomNavigationView navigation = findViewById(R.id.nav_bar);
         navigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
@@ -87,10 +67,8 @@ public class HomeActivity extends AppCompatActivity {
 
         this.gridViewProducts = findViewById(R.id.grid_dashboard_items);
         final ArrayList<Product> products = (ArrayList<Product>) this.productDao.getAllProducts();
-        final HomeActivity.ProductGridAdapter productGridAdapter = new HomeActivity.ProductGridAdapter(getApplicationContext(), products);
+        final MyProfileWishlistActivity.ProductGridAdapter productGridAdapter = new MyProfileWishlistActivity.ProductGridAdapter(getApplicationContext(), products);
         gridViewProducts.setAdapter(productGridAdapter);
-
-        //this.productsRef.removeEventListener(eventListener);
 
         gridViewProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -105,10 +83,11 @@ public class HomeActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+
     /**
      * Adapter class for the product items displayed in GridView in the frame layout
      */
-    public class ProductGridAdapter extends BaseAdapter {
+    private class ProductGridAdapter extends BaseAdapter {
 
         private final List<Product> products;
         private final Context context;
@@ -142,13 +121,15 @@ public class HomeActivity extends AppCompatActivity {
             // 2
             if (view == null) {
                 final LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
-                view = layoutInflater.inflate(R.layout.fragment_product_preview, viewGroup, false);
+                view = layoutInflater.inflate(R.layout.fragment_product_my_wishlist, viewGroup, false);
             }
 
             // 3
             final ImageView imageView = (ImageView) view.findViewById(R.id.image_product);
             final TextView nameTextView = (TextView) view.findViewById(R.id.text_product_name);
             final TextView brand = (TextView) view.findViewById(R.id.text_brand);
+
+            //TODO: missing onclick X button to remove item from wishlist + impl in DAO
 
             // 4
             //set product image
@@ -158,4 +139,5 @@ public class HomeActivity extends AppCompatActivity {
             return view;
         }
     }
+
 }
