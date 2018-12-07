@@ -204,16 +204,5 @@
             android:text="Whey Protein Isolates (WPIs) are the purest form of whey protein that currently exists. WPIs are costly to use, but rate among the best proteins that money can buy. That’s why they’re the first ingredient you read on the Gold Standard 100% Whey label. By using WPI as the primary ingredient along with premium ultra-filtered whey protein concentrate (WPC), we’re able to pack 24 grams of muscle-building protein into every serving. ON’s attention to detail also extends to mixability. This superior quality powder has been instantized to mix easily using a shaker cup or just a glass and spoon. There’s no doubt that this is the standard by which all other whey proteins are measured." />
     </LinearLayout>
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/nav_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorBlue"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:itemIconTint="@drawable/bottom_nav_colors"
-        app:itemTextColor="@drawable/bottom_nav_colors"
-        app:menu="@menu/bottom_navigation">
 
-    </android.support.design.widget.BottomNavigationView>
 </android.support.constraint.ConstraintLayout>

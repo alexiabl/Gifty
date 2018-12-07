@@ -1,8 +1,11 @@
 package com.gifty.hci.gifty.model;
 
 import android.media.Image;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.format.DateFormat;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -17,6 +20,7 @@ public class Wishlist {
     private Long numItems;
     private boolean expired;
     private List<Product> items;
+    private Long id;
 
     public Wishlist(String name, String deadline, Long numItems, boolean expired) {
         this.name = name;
@@ -24,6 +28,20 @@ public class Wishlist {
         this.numItems = numItems;
         this.expired = expired;
     }
+
+    public Wishlist(Parcel in) {
+
+    }
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Wishlist createFromParcel(Parcel in) {
+            return new Wishlist(in);
+        }
+
+        public Wishlist[] newArray(int size) {
+            return new Wishlist[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -71,5 +89,14 @@ public class Wishlist {
 
     public void setItems(List<Product> items) {
         this.items = items;
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

@@ -48,11 +48,11 @@ public class ProductDao {
                     String name = (String) data.child("name").getValue();
                     String brand = (String) data.child("brand").getValue();
                     String price = (String) data.child("price").getValue();
-                    //int id = (Integer)data.child("id").getValue();
+                    Long id = (Long) data.child("id").getValue();
                     Long rating = (Long) data.child("rating").getValue();
                     boolean inStock = (Boolean) data.child("inStock").getValue();
                     String imageUrl = (String) data.child("imageUrl").getValue();
-                    Product product = new Product(name, price, brand, inStock, rating, imageUrl);
+                    Product product = new Product(id, name, price, brand, inStock, rating, imageUrl);
                     products.add(product);
                 }
                 //done.countDown();

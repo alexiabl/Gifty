@@ -34,6 +34,8 @@
                     android:searchIcon="@drawable/ic_search_black_24dp"
                     android:paddingLeft="10dp"
                     android:background="@drawable/layout_emailboxwhite">
+
+                    <requestFocus />
                 </SearchView>
 
 
@@ -51,7 +53,6 @@
         android:name="com.gifty.hci.gifty.ProductPreviewFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="15dp"
         android:layout_marginTop="50dp">
 
         <GridView
@@ -63,16 +64,11 @@
     </RelativeLayout>
 
 
-    <android.support.design.widget.BottomNavigationView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/nav_bar"
+    <include
+        layout="@layout/layout_bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorBlue"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="@id/home_dashboard_items"
-        app:itemIconTint="@drawable/bottom_nav_colors"
-        app:itemTextColor="@drawable/bottom_nav_colors"
-        app:menu="@menu/bottom_navigation" />
+        android:layout_gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="@+id/home_dashboard_items" />
 
 </android.support.constraint.ConstraintLayout>

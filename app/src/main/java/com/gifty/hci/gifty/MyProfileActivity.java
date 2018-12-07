@@ -2,13 +2,11 @@ package com.gifty.hci.gifty;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.app.Activity;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +20,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.gifty.hci.gifty.dao.UserDao;
-import com.gifty.hci.gifty.model.Product;
 import com.gifty.hci.gifty.model.User;
 import com.gifty.hci.gifty.model.Wishlist;
 import com.google.firebase.database.DataSnapshot;
@@ -38,15 +35,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Activity for the user's profile
+ * Activity for Logged in user profile
  *
- * @author Alexia Borchgrevink
+ * @author alexiaborchgrevink
  */
-public class ProfileActivity extends AppCompatActivity {
+public class MyProfileActivity extends AppCompatActivity {
 
-    public ProfileActivity instance = this;
+    public MyProfileActivity instance = this;
 
-    private UserDao userDao = new UserDao();
     private DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
     private DatabaseReference userRef = dbRef.child("Users");
     private User currentUser;
@@ -62,34 +58,37 @@ public class ProfileActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private WishlistAdapter wishlistAdapter;
     private String userId;
-
+    private ImageButton createButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_my_profile);
 
         this.bottomNavigationView = findViewById(R.id.nav_bar);
+        //this.wishlistAdapter = new ProfileActivity.WishlistAdapter(this);
 
+
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(3);
+        menuItem.setChecked(true);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.nav_home:
-                        Intent intentHome = new Intent(ProfileActivity.this, HomeActivity.class);
+                        Intent intentHome = new Intent(MyProfileActivity.this, HomeActivity.class);
                         startActivity(intentHome);
                         break;
                     case R.id.nav_search_friends:
-                        Intent intentSearch = new Intent(ProfileActivity.this, SearchFriendsActivity.class);
+                        Intent intentSearch = new Intent(MyProfileActivity.this, SearchFriendsActivity.class);
                         startActivity(intentSearch);
                         break;
                     case R.id.nav_notifications:
-                        Intent intentNotifications = new Intent(ProfileActivity.this, NotificationsActivity.class);
+                        Intent intentNotifications = new Intent(MyProfileActivity.this, NotificationsActivity.class);
                         startActivity(intentNotifications);
                         break;
                     case R.id.nav_profile:
-                        Intent intentProfile = new Intent(ProfileActivity.this, MyProfileActivity.class);
-                        startActivity(intentProfile);
                         break;
                 }
                 return false;
@@ -97,11 +96,9 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         //TODO: get current logged user
-        Intent intent = getIntent();
 
-        this.userId = intent.getStringExtra("userId");
-
-        Query query = this.userRef.child(userId);
+        //Query query = this.userRef.child(currentUser.getId().toString());
+        Query query = this.userRef.child("3");
         ValueEventListener eventListener = query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -116,21 +113,49 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        this.listView = findViewById(R.id.profile_wishlist_list);
-        this.userName = findViewById(R.id.profile_username);
-        this.numWishlist = findViewById(R.id.text_wishlist);
-        this.numFriends = findViewById(R.id.text_friends);
+        this.listView = findViewById(R.id.my_profile_wishlist_list);
+        this.userName = findViewById(R.id.my_profile_username);
+        this.numWishlist = findViewById(R.id.text_my_wishlist);
+        this.numFriends = findViewById(R.id.text_my_friends);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), WishlistActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MyProfileWishlistActivity.class);
                 Wishlist wishlist = (Wishlist) wishlistAdapter.getItem(position);
                 intent.putExtra("wishlistName", wishlist.getName());
                 intent.putExtra("wishlistDeadline", wishlist.getDeadline());
                 startActivity(intent);
             }
         });
+
+        logoutButton = findViewById(R.id.btn_logout);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: logout
+            }
+        });
+
+        settingsButton = findViewById(R.id.btn_settings);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO
+                // change to edit profile activity for user
+            }
+        });
+
+        createButton = findViewById(R.id.icon_create_wishlist);
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(instance, CreateWishlistActivity.class);
+                intent.putExtra("userId", "3");
+                startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -168,7 +193,7 @@ public class ProfileActivity extends AppCompatActivity {
             Wishlist wishlist = new Wishlist(name, deadline, numItems, expired);
             userWishlists.add(wishlist);
         }
-        wishlistAdapter = new ProfileActivity.WishlistAdapter(this, userWishlists);
+        wishlistAdapter = new MyProfileActivity.WishlistAdapter(this, userWishlists);
         listView.setAdapter(wishlistAdapter);
     }
 
@@ -237,5 +262,4 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     }
-
 }

@@ -27,13 +27,20 @@ public class Product {
 
     private List<Review> reviewList;
 
-    public Product(String name, String price, String brand, boolean inStock, Long rating, String imageUrl) {
+    private Long id;
+
+    public Product(Long id, String name, String price, String brand, boolean inStock, Long rating, String imageUrl) {
         this.name = name;
         this.price = price;
         this.brand = brand;
         this.inStock = inStock;
         this.rating = rating;
         this.imageUrl = imageUrl;
+        this.id = id;
+    }
+
+    public Product() {
+
     }
 
     public String getName() {
@@ -90,5 +97,13 @@ public class Product {
 
     public void setReviewList(List<Review> reviewList) {
         this.reviewList = reviewList;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

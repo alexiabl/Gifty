@@ -15,7 +15,11 @@ import com.gifty.hci.gifty.model.Product;
 import com.gifty.hci.gifty.model.Wishlist;
 import com.squareup.picasso.Picasso;
 
-
+/**
+ * Fragment for list of a profile's wishlist
+ *
+ * @author alexiaborchgrevink
+ */
 public class ProfileWishlistFragment extends Fragment {
 
 
