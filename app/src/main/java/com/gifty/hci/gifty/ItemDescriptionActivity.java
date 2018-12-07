@@ -11,12 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.gifty.hci.gifty.dao.ProductDao;
 import com.gifty.hci.gifty.dao.UserDao;
 import com.gifty.hci.gifty.model.Product;
-import com.gifty.hci.gifty.model.Review;
-import com.gifty.hci.gifty.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -91,13 +88,14 @@ public class ItemDescriptionActivity extends AppCompatActivity {
     public void btnInsert(View view) {
         ref.addValueEventListener(new ValueEventListener() {
 
-            private ProductDao productDao1;
+            public ProductDao productDao1;
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<Product> products = (ArrayList<Product>) this.productDao1.getAllProducts();
+                String key = ref.push().getKey();
                 Product product = products.get(0);
-                ref.child("5").setValue(product);
+                ref.child(key).setValue(product);
                 Toast.makeText(ItemDescriptionActivity.this, "Item added to wishlist", Toast.LENGTH_LONG);
                 Intent intent = new Intent(instance, WishlistActivity.class);
                 getApplicationContext().startActivity(intent);
