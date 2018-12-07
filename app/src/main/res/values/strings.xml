@@ -15,6 +15,8 @@
     <string name="gift_cart">Gift Cart</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="sign_in">Sign in</string>
+    <string name="Next">Next</string>
+    <string name="Send">Send</string>
     <string name="password">Password</string>
     <string name="forgot_password2">Forgot Password</string>
     <string name="title_activity_edit_profile">EditProfileActivity</string>
@@ -25,6 +27,13 @@
     <string name="label_email">Email:</string>
     <string name="label_birthday">Birthday:</string>
     <string name="btn_label_save">Save</string>
+    <string name="hello_name">Hello \'Name\'</string>
+    <string name="choose_a_profile_picture_to_make_it_easier_for_your_family_and_friends_to_find_you">Choose a profile picture to make it easier for your family and friends to find you</string>
+    <string name="skip">Skip</string>
+    <string name="done">Done</string>
+    <string name="or">OR</string>
+    <string name="create_a_new_account">Create a new account</string>
+    <string name="an_email_was_sent_to_you_please_check_your_inbox">An email was sent to you. Please check your inbox.</string>
     <string name="title_activity_my_profile_wishlist">MyProfileWishlistActivity</string>
     <string name="label_wishlist">Wishlist</string>
     <string name="title_activity_create_wishlist">Create Wishlist</string>
@@ -36,4 +45,5 @@
     <string name="title_activity_base">BaseActivity</string>
 
 
+>>>>>>> Alexia2
 </resources>
