@@ -3,6 +3,7 @@
     package="com.gifty.hci.gifty">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,12 +19,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".HomeActivity"
             android:label="@string/app_name" />
-
-        <activity android:name=".SearchFriendsActivity" />
+      
+        <activity android:name=".SearchFriendsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"
@@ -58,10 +62,7 @@
             android:name=".ChooseWishlistActivity"
             android:label="@string/title_activity_choose_wishlist"
             android:theme="@style/GiftyTheme" />
-        <activity
-            android:name=".BaseActivity"
-            android:label="@string/title_activity_base"
-            android:theme="@style/GiftyTheme"></activity>
+        <activity android:name=".MyProfileActivity"></activity>
     </application>
 
 </manifest>

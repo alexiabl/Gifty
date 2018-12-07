@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".SearchFriendsActivity">
 
     <LinearLayout
@@ -16,58 +17,60 @@
         android:orientation="horizontal"
         >
 
-        <android.support.v7.widget.AppCompatImageButton
-            android:id="@+id/home_gifty_logo"
+        <ImageView
+            android:id="@+id/search_gifty_logo"
             android:layout_width="@dimen/top_bar_logo_width"
             android:layout_height="@dimen/top_bar_logo_height"
-            android:src="@drawable/ic_gifty_logo"
             />
 
         <SearchView
-            android:id="@+id/home_search_bar"
+            android:id="@+id/search_friends_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:iconifiedByDefault="true"
             android:inputType="text"
             android:layout_marginStart="5dp"
-            android:layout_marginEnd="10dp"
-            android:searchIcon="@drawable/ic_search_black_24dp"
-            android:background="@drawable/layout_emailboxwhite"
-            android:paddingLeft="10dp"
-            >
+            android:layout_marginEnd="15dp"
+            android:queryHint="Search friends"
+            android:background="@drawable/round_border">
+
+            <requestFocus />
         </SearchView>
 
     </LinearLayout>
 
-    <FrameLayout
+    <TextView
+        android:id="@+id/text_search_results"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/search_friends_topbar"
+        android:layout_marginTop="10dp"
+        android:gravity="center" />
+
+    <RelativeLayout
         android:id="@+id/search_friends_results"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
-        android:layout_marginStart="20dp">
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
 
         <GridView
                 android:id="@+id/grid_friends"
-                android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:numColumns="2"
                 android:layout_height="match_parent">
 
         </GridView>
 
-    </FrameLayout>
+    </RelativeLayout>
 
-    <android.support.design.widget.BottomNavigationView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/nav_bar"
+    <include
+        layout="@layout/layout_bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorBlue"
-        android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_navigation"
+        android:layout_gravity="bottom"
         app:layout_constraintBottom_toBottomOf="@+id/search_friends_results"
-        app:itemIconTint="@drawable/bottom_nav_colors"
-        app:itemTextColor="@drawable/bottom_nav_colors"
-        app:labelVisibilityMode="labeled"
         />
 
 </android.support.constraint.ConstraintLayout>

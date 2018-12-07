@@ -4,7 +4,7 @@
     android:id="@+id/fragment_product_preview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProductPreviewFragment">
+    tools:context=".ProductMyWishlistFragment">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/product_preview"
@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/image_product"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
             android:layout_marginStart="25dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="25dp"
@@ -52,7 +52,6 @@
             android:width="286.84dp"
             android:height="9.5dp"
             android:gravity="start"
-            android:text="Grey Scarf"
             android:textColor="@color/colorText"
             android:textSize="9sp" />
 
@@ -64,9 +63,8 @@
             android:layout_below="@+id/image_product"
             android:layout_alignEnd="@+id/image_product"
             android:layout_marginTop="0dp"
-            android:layout_toRightOf="@+id/text_product_name"
+            android:layout_toEndOf="@+id/text_product_name"
             android:gravity="end"
-            android:text="Brand"
             android:textSize="9sp" />
 
     </RelativeLayout>

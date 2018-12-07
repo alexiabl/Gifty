@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.gifty.hci.gifty.dao.ProductDao;
@@ -38,72 +40,160 @@ import java.util.Map;
 
 /**
  * Class for the main Home/Dashboard page
+ *
  * @author Alexia Borchgrevink
  */
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
-    public HomeActivity instance = this;
 
-    //TODO: solve error with logo image view inflating
     public ImageView imageViewLogo;
-
     private GridView gridViewProducts;
     private ProductDao productDao = new ProductDao();
+    private DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference productsRef = dbRef.child("Products");
+    private BottomNavigationView bottomNavigationView;
+    private SearchView search_text;
 
-
-    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            Intent intent = null;
-            switch(menuItem.getItemId()){
-                case R.id.nav_home:
-                    intent = new Intent(instance, instance.getClass());
-                    menuItem.setChecked(true);
-                    break;
-                case R.id.nav_search_friends:
-                    intent = new Intent(instance, SearchFriendsActivity.class);
-                    break;
-                case R.id.nav_notifications:
-                    intent = new Intent(instance, NotificationsActivity.class);
-                    break;
-                case R.id.nav_profile:
-                    intent = new Intent(instance, ProfileActivity.class);
-                    break;
-            }
-            getApplicationContext().startActivity(intent);
-            return true;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        BottomNavigationView navigation = findViewById(R.id.nav_bar);
-        navigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-        ProductPreviewFragment productPreviewFragment = new ProductPreviewFragment();
+        bottomNavigationView = findViewById(R.id.nav_bar);
+        this.search_text = findViewById(R.id.home_search_bar);
+        this.search_text.setOnQueryTextListener(this);
 
+
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.nav_home:
+                        break;
+                    case R.id.nav_search_friends:
+                        Intent intentSearch = new Intent(HomeActivity.this, SearchFriendsActivity.class);
+                        startActivity(intentSearch);
+                        break;
+                    case R.id.nav_notifications:
+                        Intent intentNotifications = new Intent(HomeActivity.this, NotificationsActivity.class);
+                        startActivity(intentNotifications);
+                        break;
+                    case R.id.nav_profile:
+                        Intent intentProfile = new Intent(HomeActivity.this, MyProfileActivity.class);
+                        startActivity(intentProfile);
+                        break;
+                }
+                return false;
+            }
+        });
+
+        this.imageViewLogo = findViewById(R.id.home_gifty_logo);
+        Picasso.with(this).load("https://firebasestorage.googleapis.com/v0/b/gifty-bd69a.appspot.com/o/gifty_logo.png?alt=media&token=b372eabd-9322-4aab-ad6d-49ee6918a559").into(imageViewLogo);
         this.gridViewProducts = findViewById(R.id.grid_dashboard_items);
-        final ArrayList<Product> products = (ArrayList<Product>) this.productDao.getAllProducts();
-        final HomeActivity.ProductGridAdapter productGridAdapter = new HomeActivity.ProductGridAdapter(getApplicationContext(), products);
-        gridViewProducts.setAdapter(productGridAdapter);
 
-        //this.productsRef.removeEventListener(eventListener);
+        getAllProducts();
 
         gridViewProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View view, int position, long id) {
-                Product product = products.get(position);
+                //Product product = products.get(position);
                 //productGridAdapter.notifyDataSetChanged();
                 //change view to product description activity
             }
         });
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.home_dashboard_items, productPreviewFragment);
-        fragmentTransaction.commit();
     }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        search_text.setQuery("", false);
+        search_text.setIconified(true);
+    }
+
+    public void getAllProducts() {
+        this.productsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<Product> products = new ArrayList<>();
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    String name = (String) data.child("name").getValue();
+                    String brand = (String) data.child("brand").getValue();
+                    String price = (String) data.child("price").getValue();
+                    Long id = (Long) data.child("id").getValue();
+                    Long rating = (Long) data.child("rating").getValue();
+                    boolean inStock = (Boolean) data.child("inStock").getValue();
+                    String imageUrl = (String) data.child("imageUrl").getValue();
+                    Product product = new Product(id, name, price, brand, inStock, rating, imageUrl);
+                    products.add(product);
+                }
+                HomeActivity.ProductGridAdapter productGridAdapter = new HomeActivity.ProductGridAdapter(getApplicationContext(), products);
+                gridViewProducts.setAdapter(productGridAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public void getProductsByName(String s) {
+        productsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<Product> products = new ArrayList<>();
+                Integer count = 0;
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    String name = (String) data.child("name").getValue();
+                    if (name.toLowerCase().contains(s.toLowerCase())) {
+                        count++;
+                        String brand = (String) data.child("brand").getValue();
+                        String price = (String) data.child("price").getValue();
+                        Long id = (Long) data.child("id").getValue();
+                        Long rating = (Long) data.child("rating").getValue();
+                        boolean inStock = (Boolean) data.child("inStock").getValue();
+                        String imageUrl = (String) data.child("imageUrl").getValue();
+                        Product product = new Product(id, name, price, brand, inStock, rating, imageUrl);
+                        products.add(product);
+                    }
+                }
+                ProductGridAdapter productGridAdapter = new HomeActivity.ProductGridAdapter(getApplicationContext(), products);
+                gridViewProducts.setAdapter(productGridAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        getProductsByName(s);
+        search_text.clearFocus();
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        if (s.isEmpty()) {
+            getAllProducts();
+        }
+        search_text.clearFocus();
+        return false;
+    }
+
 
     /**
      * Adapter class for the product items displayed in GridView in the frame layout
@@ -149,10 +239,15 @@ public class HomeActivity extends AppCompatActivity {
             final ImageView imageView = (ImageView) view.findViewById(R.id.image_product);
             final TextView nameTextView = (TextView) view.findViewById(R.id.text_product_name);
             final TextView brand = (TextView) view.findViewById(R.id.text_brand);
+            final ImageView imagePrice = view.findViewById(R.id.image_price);
 
             // 4
             //set product image
+            String defaultPrice = "https://firebasestorage.googleapis.com/v0/b/gifty-bd69a.appspot.com/o/dollars2.png?alt=media&token=f52379e9-c3f6-427e-91e6-0d4b60e131a4";
+
             Picasso.with(context).load(item.getImageUrl()).into(imageView);
+            Picasso.with(context).load(defaultPrice).into(imagePrice);
+            imageView.setBackgroundResource(R.drawable.round_border);
             nameTextView.setText(item.getName());
             brand.setText(item.getBrand());
             return view;

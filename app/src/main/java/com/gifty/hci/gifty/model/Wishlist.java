@@ -1,8 +1,11 @@
 package com.gifty.hci.gifty.model;
 
 import android.media.Image;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.format.DateFormat;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,17 +17,31 @@ public class Wishlist {
     private String name;
     private String imageUrl;
     private String deadline;
-    private int numItems;
+    private Long numItems;
     private boolean expired;
     private List<Product> items;
+    private Long id;
 
-    public Wishlist(String name, String image, String deadline, int numItems, boolean expired) {
+    public Wishlist(String name, String deadline, Long numItems, boolean expired) {
         this.name = name;
-        this.imageUrl = image;
         this.deadline = deadline;
         this.numItems = numItems;
         this.expired = expired;
     }
+
+    public Wishlist(Parcel in) {
+
+    }
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Wishlist createFromParcel(Parcel in) {
+            return new Wishlist(in);
+        }
+
+        public Wishlist[] newArray(int size) {
+            return new Wishlist[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -50,11 +67,11 @@ public class Wishlist {
         this.deadline = deadline;
     }
 
-    public int getNumItems() {
+    public Long getNumItems() {
         return numItems;
     }
 
-    public void setNumItems(int numItems) {
+    public void setNumItems(Long numItems) {
         this.numItems = numItems;
     }
 
@@ -72,5 +89,14 @@ public class Wishlist {
 
     public void setItems(List<Product> items) {
         this.items = items;
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

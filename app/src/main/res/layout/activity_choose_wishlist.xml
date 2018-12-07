@@ -46,16 +46,5 @@
             android:layout_height="match_parent"></ListView>
     </FrameLayout>
 
-    <android.support.design.widget.BottomNavigationView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/nav_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorBlue"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="@id/frame_wishlist_list"
-        app:itemIconTint="@drawable/bottom_nav_colors"
-        app:itemTextColor="@drawable/bottom_nav_colors"
-        app:menu="@menu/bottom_navigation" />
 
 </android.support.constraint.ConstraintLayout>

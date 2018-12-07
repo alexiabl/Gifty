@@ -2,18 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_product_preview"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     tools:context=".ProductPreviewFragment">
 
 
         <ImageView
             android:id="@+id/image_product"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
             android:layout_marginStart="25dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="25dp"
+            android:scaleType="fitCenter"
             android:background="@drawable/round_border" />
 
         <ImageView
@@ -22,9 +23,8 @@
             android:layout_height="24dp"
             android:layout_alignTop="@+id/image_product"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="34dp"
+            android:layout_marginStart="14dp"
             android:layout_marginTop="9dp"
-            android:src="@drawable/ic_dollars2"
             android:background="@drawable/layout_product_price" />
 
         <TextView
@@ -38,7 +38,7 @@
             android:gravity="start"
             android:height="9.5dp"
             android:textColor="@color/colorText"
-            android:textSize="9sp" />
+            android:textSize="12sp" />
 
 
         <TextView
@@ -50,7 +50,7 @@
             android:layout_alignEnd="@+id/image_product"
             android:layout_toRightOf="@+id/text_product_name"
             android:gravity="end"
-            android:textSize="9sp" />
+            android:textSize="12sp" />
 
 
 </RelativeLayout>

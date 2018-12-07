@@ -18,13 +18,21 @@ public class User {
     private List<User> followers;
     private List<User> following;
     private ShoppingCart shoppingCart;
+    private Long numFollowers;
+    private Long numWishlists;
+    private String imageUrl;
+    private String id;
 
-    public User(String email, String firstName, String lastName, String birthdate, String password) {
+    public User(String id, String email, String firstName, String lastName, String birthdate, String password) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
         this.password = password;
+        this.id = id;
+    }
+
+    public User() {
     }
 
     public String getEmail() {
@@ -89,5 +97,37 @@ public class User {
 
     public void setShoppingCart(ShoppingCart shoppingCart) {
         this.shoppingCart = shoppingCart;
+    }
+
+    public Long getNumFollowers() {
+        return numFollowers;
+    }
+
+    public void setNumFollowers(Long numFollowers) {
+        this.numFollowers = numFollowers;
+    }
+
+    public Long getNumWishlists() {
+        return numWishlists;
+    }
+
+    public void setNumWishlists(Long numWishlists) {
+        this.numWishlists = numWishlists;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

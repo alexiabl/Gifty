@@ -9,78 +9,139 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gifty.hci.gifty.dao.ProductDao;
 import com.gifty.hci.gifty.model.Product;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity to handle Profile's Wishlist
+ *
+ * @author alexiaborchgrevink
+ */
 public class MyProfileWishlistActivity extends AppCompatActivity {
 
     MyProfileWishlistActivity instance = this;
     private GridView gridViewProducts;
-    private ProductDao productDao = new ProductDao();
+    private BottomNavigationView bottomNavigationView;
+    private DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference productsRef = dbRef.child("Products");
+    private TextView wishlistLabel;
+    private TextView wishlistName;
+    private TextView wishlistDeadline;
+    private ImageButton backButton;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            Intent intent = null;
-            switch (menuItem.getItemId()) {
-                case R.id.nav_home:
-                    intent = new Intent(instance, HomeActivity.class);
-                    menuItem.setChecked(true);
-                    break;
-                case R.id.nav_search_friends:
-                    intent = new Intent(instance, SearchFriendsActivity.class);
-                    break;
-                case R.id.nav_notifications:
-                    intent = new Intent(instance, NotificationsActivity.class);
-                    break;
-                case R.id.nav_profile:
-                    intent = new Intent(instance, ProfileActivity.class);
-                    break;
-            }
-            getApplicationContext().startActivity(intent);
-            return true;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile_wishlist);
+        bottomNavigationView = findViewById(R.id.nav_bar);
 
-        BottomNavigationView navigation = findViewById(R.id.nav_bar);
-        navigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-        ProductPreviewFragment productPreviewFragment = new ProductPreviewFragment();
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(3);
+        menuItem.setChecked(true);
 
-        this.gridViewProducts = findViewById(R.id.grid_dashboard_items);
-        final ArrayList<Product> products = (ArrayList<Product>) this.productDao.getAllProducts();
-        final MyProfileWishlistActivity.ProductGridAdapter productGridAdapter = new MyProfileWishlistActivity.ProductGridAdapter(getApplicationContext(), products);
-        gridViewProducts.setAdapter(productGridAdapter);
+        backButton = findViewById(R.id.img_top_bar_back);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.nav_home:
+                        Intent intentHome = new Intent(MyProfileWishlistActivity.this, HomeActivity.class);
+                        startActivity(intentHome);
+                        break;
+                    case R.id.nav_search_friends:
+                        Intent intentSearch = new Intent(MyProfileWishlistActivity.this, SearchFriendsActivity.class);
+                        startActivity(intentSearch);
+                        break;
+                    case R.id.nav_notifications:
+                        Intent intentNotifications = new Intent(MyProfileWishlistActivity.this, NotificationsActivity.class);
+                        startActivity(intentNotifications);
+                        break;
+                    case R.id.nav_profile:
+                        Intent intentProfile = new Intent(MyProfileWishlistActivity.this, ProfileActivity.class);
+                        startActivity(intentProfile);
+                        break;
+                }
+                return false;
+            }
+        });
+
+        this.wishlistLabel = findViewById(R.id.text_top_bar_label);
+        this.wishlistName = findViewById(R.id.text_wishlist_name);
+        this.wishlistDeadline = findViewById(R.id.text_wishlist_deadline);
+        Intent intent = getIntent();
+
+        this.wishlistLabel.setText(intent.getStringExtra("wishlistName"));
+        this.wishlistName.setText(intent.getStringExtra("wishlistName"));
+        this.wishlistDeadline.setText(intent.getStringExtra("wishlistDeadline"));
+
+        this.gridViewProducts = findViewById(R.id.grid_my_wishlist_items);
+        getAllProducts();
 
         gridViewProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View view, int position, long id) {
-                Product product = products.get(position);
                 //productGridAdapter.notifyDataSetChanged();
                 //change view to product description activity
             }
         });
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.home_dashboard_items, productPreviewFragment);
-        fragmentTransaction.commit();
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
+
+    public void getAllProducts() {
+        this.productsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<Product> products = new ArrayList<>();
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    String name = (String) data.child("name").getValue();
+                    String brand = (String) data.child("brand").getValue();
+                    String price = (String) data.child("price").getValue();
+                    Long id = (Long) data.child("id").getValue();
+                    Long rating = (Long) data.child("rating").getValue();
+                    boolean inStock = (Boolean) data.child("inStock").getValue();
+                    String imageUrl = (String) data.child("imageUrl").getValue();
+                    Product product = new Product(id, name, price, brand, inStock, rating, imageUrl);
+                    products.add(product);
+                }
+                MyProfileWishlistActivity.ProductGridAdapter productGridAdapter = new MyProfileWishlistActivity.ProductGridAdapter(getApplicationContext(), products);
+                gridViewProducts.setAdapter(productGridAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 
