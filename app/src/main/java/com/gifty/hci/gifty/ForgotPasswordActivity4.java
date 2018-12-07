@@ -6,6 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * Activity for the user's profile
+ *
+ * @author Marwan Bushara
+ */
+
 public class ForgotPasswordActivity4 extends AppCompatActivity {
 
     private Button Signin;

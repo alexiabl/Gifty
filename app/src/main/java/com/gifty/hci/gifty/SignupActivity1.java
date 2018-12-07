@@ -24,6 +24,12 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * Activity for the user's profile
+ *
+ * @author Marwan Bushara
+ */
+
 public class SignupActivity1 extends AppCompatActivity {
 
     private EditText FirstName;
@@ -42,7 +48,7 @@ public class SignupActivity1 extends AppCompatActivity {
     private ProgressDialog mProgress;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createaccount1);
 
@@ -64,7 +70,7 @@ public class SignupActivity1 extends AppCompatActivity {
         Back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Backintent = new Intent(SignupActivity1.this, SigninActivity.class);
+                Intent Backintent = new Intent(SignupActivity1.this,SigninActivity.class);
                 startActivity(Backintent);
             }
         });
@@ -88,15 +94,20 @@ public class SignupActivity1 extends AppCompatActivity {
         String password = Password.getText().toString().trim();
         String confirmpassword = ConfirmPasswword.getText().toString().trim();
 
-        if (!TextUtils.isEmpty(firstname) && !TextUtils.isEmpty(lastname) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(confirmpassword)) {
+        if(!TextUtils.isEmpty(firstname) && !TextUtils.isEmpty(lastname) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(confirmpassword)){
 
-            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            if (!password.equals(confirmpassword)) {
+                Toast.makeText(SignupActivity1.this, "Passwords don't match", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
 
-                    if (task.isSuccessful()) {
-                        String user_id = mAuth.getCurrentUser().getUid();
-                        DatabaseReference current_user = mDatabase.child(user_id);
+                    if (task.isSuccessful()){
+                        String user_id= mAuth.getCurrentUser().getUid();
+                        DatabaseReference current_user =  mDatabase.child(user_id);
                         current_user.child("email").setValue(email);
                         current_user.child("first_name").setValue(firstname);
                         current_user.child("followers").setValue(null);
@@ -106,28 +117,28 @@ public class SignupActivity1 extends AppCompatActivity {
                         current_user.child("wishlists").setValue(null);
                         current_user.child("birthdate").setValue(birthdate);
 
-                        Intent intent = new Intent(SignupActivity1.this, SignupActivity2.class);
-                        intent.putExtra("name", firstname);
+                        Intent intent= new Intent(SignupActivity1.this, SignupActivity2.class);
+                        intent.putExtra("name",firstname);
                         startActivity(intent);
 
-                    } else {
-                        try {
+                    }else{
+                        try{
                             throw task.getException();
-                        } catch (FirebaseAuthWeakPasswordException e) {
-                            Toast.makeText(SignupActivity1.this, "Password should be longer than 6 characters", Toast.LENGTH_LONG).show();
-                        } catch (FirebaseAuthInvalidCredentialsException e) {
-                            Toast.makeText(SignupActivity1.this, "Invalid Email", Toast.LENGTH_LONG).show();
-                        } catch (FirebaseAuthUserCollisionException e) {
-                            Toast.makeText(SignupActivity1.this, "Email is already used", Toast.LENGTH_LONG).show();
-                        } catch (Exception e) {
-                            Toast.makeText(SignupActivity1.this, "Error", Toast.LENGTH_LONG).show();
+                        }catch(FirebaseAuthWeakPasswordException e){
+                            Toast.makeText(SignupActivity1.this,"Password should be longer than 6 characters", Toast.LENGTH_LONG).show();
+                        }catch (FirebaseAuthInvalidCredentialsException e){
+                            Toast.makeText(SignupActivity1.this,"Invalid Email", Toast.LENGTH_LONG).show();
+                        }catch (FirebaseAuthUserCollisionException e){
+                            Toast.makeText(SignupActivity1.this,"Email is already used", Toast.LENGTH_LONG).show();
+                        }catch(Exception e) {
+                            Toast.makeText(SignupActivity1.this,"Error", Toast.LENGTH_LONG).show();
                         }
 
                     }
                 }
             });
         } else {
-            Toast.makeText(SignupActivity1.this, "Empty Fields", Toast.LENGTH_LONG).show();
+            Toast.makeText(SignupActivity1.this,"Empty Fields", Toast.LENGTH_LONG).show();
         }
     }
 }

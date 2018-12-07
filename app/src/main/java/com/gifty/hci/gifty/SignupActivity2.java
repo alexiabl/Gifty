@@ -12,9 +12,19 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+/**
+ * Activity for the user's profile
+ *
+ * @author Marwan Bushara
+ */
 
 public class SignupActivity2 extends AppCompatActivity {
 
@@ -26,8 +36,10 @@ public class SignupActivity2 extends AppCompatActivity {
     private ImageView Picture;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private StorageReference mStorage;
 
-    private static final int PICK_IMAGE = 100;
+
+    private static final int PICK_IMAGE = 1;
     private Uri ImageUri;
 
 
@@ -40,7 +52,7 @@ public class SignupActivity2 extends AppCompatActivity {
         String name = intent.getStringExtra("name");
 
         Name = (TextView) findViewById(R.id.tvCreateaccount2_1);
-        Name.setText("Hello" + name + ",");
+        Name.setText("Hello" + " " + name + ",");
 
         AddPicture = (ImageButton) findViewById(R.id.btnCreateaccount2_1);
         Skip = (Button) findViewById(R.id.btnCreateaccount2_2);
@@ -48,6 +60,8 @@ public class SignupActivity2 extends AppCompatActivity {
         Picture = (ImageView) findViewById(R.id.ivCreateaccount2_1);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+        mStorage = FirebaseStorage.getInstance().getReference().child("user_profilepic/");
+
 
         AddPicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,14 +73,14 @@ public class SignupActivity2 extends AppCompatActivity {
         Skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent SkipIntent = new Intent(SignupActivity2.this, HomeActivity.class);
+                Intent SkipIntent = new Intent(SignupActivity2.this,HomeActivity.class);
                 startActivity(SkipIntent);
             }
         });
         Done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent DoneIntent = new Intent(SignupActivity2.this, HomeActivity.class);
+                Intent DoneIntent = new Intent(SignupActivity2.this,HomeActivity.class);
                 startActivity(DoneIntent);
             }
         });
@@ -76,19 +90,28 @@ public class SignupActivity2 extends AppCompatActivity {
 
     private void openGallery() {
 
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(gallery, PICK_IMAGE);
+        Intent gallery = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery,PICK_IMAGE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
-            ImageUri = data.getData();
+        super.onActivityResult(requestCode,resultCode,data);
+        if (resultCode == RESULT_OK && requestCode==PICK_IMAGE){
+            ImageUri=data.getData();
             Picture.setImageURI(ImageUri);
-            String user_id = mAuth.getCurrentUser().getUid();
-            DatabaseReference current_user = mDatabase.child(user_id);
-            current_user.child("picture").setValue(Picture);
+            StorageReference filepath = mStorage.child(ImageUri.getLastPathSegment());
+            filepath.putFile(ImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Uri uri = taskSnapshot.getUploadSessionUri();
+                    String user_id = mAuth.getCurrentUser().getUid();
+                    DatabaseReference current_user = mDatabase.child(user_id);
+                    current_user.child("picture").setValue(uri.toString());
+                }
+            });
+
+
         }
     }
 }

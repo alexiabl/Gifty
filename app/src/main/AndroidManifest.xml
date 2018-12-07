@@ -11,15 +11,18 @@
         android:supportsRtl="true"
         android:theme="@style/GiftyTheme">
         <activity
-            android:name=".HomeActivity"
-            android:label="@string/app_name"
-            android:theme="@style/GiftyTheme">
+            android:name=".SigninActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/app_name" />
+
         <activity android:name=".SearchFriendsActivity" />
         <activity
             android:name=".ProfileActivity"
@@ -27,8 +30,12 @@
             android:theme="@style/GiftyTheme" />
         <activity
             android:name=".EditProfileActivity"
-            android:label="@string/title_activity_edit_profile"
-            android:theme="@style/GiftyTheme" />
+            android:label="@string/title_activity_edit_profile" />
+
+        <activity android:name=".ForgotPasswordActivity1" />
+        <activity android:name=".SignupActivity1" />
+        <activity android:name=".SignupActivity2" />
+
         <activity
             android:name=".WishlistActivity"
             android:label="@string/title_activity_wishlist"
